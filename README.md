@@ -12,7 +12,9 @@ Run `/suvalgiau` in a Claude Code session. It:
 1. Reads the bridge key from `$SUVALGIAU_BRIDGE_KEY`.
 2. `GET pending.php` — every entry in status **0** (new) or **1** (rejected → redo).
 3. For each entry: views the photos, reads the note, applies your feedback (on redos), and looks up
-   NOVA scores via the public Nuodai API.
+   NOVA scores via the public Nuodai API. **If you name a shop or café** (e.g. "bandelė iš Maximos"),
+   it searches that retailer's site (maxima.lt, rimi.lt, lidl.lt, iki.lt…) for the product's real
+   calories and ingredients instead of guessing.
 4. Produces `{ calories, AI_description, NOVA, score, place }` per entry.
 5. `POST submit-analysis.php` — one batch. Each entry flips to status **2** (awaiting your review).
 6. Prints a summary.

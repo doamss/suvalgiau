@@ -103,11 +103,41 @@ word must appear in the name.
 
 ---
 
+## Step 3.5 — When a shop or café is named, look the product up online
+
+If the note names **where** the item came from — a shop ("iš Maximos", "Rimi", "Lidl", "Iki") or a
+specific café/bakery ("bandelė iš X kavinės") — don't just estimate. **Find the real product online**
+to get accurate calories / ingredients / portion, then base your numbers on that.
+
+Lookup order (stop as soon as you have solid data):
+
+1. **Nuodai API** (Step 3) — covers Barbora + Rimi + lastmile groceries; try it first for packaged items.
+2. **The named retailer's own site** — these publish nutrition + ingredients per product:
+   - **Maxima** → `maxima.lt` (its confectionery/bakery products list ingredients and kcal).
+   - **Rimi** → `rimi.lt`. **Lidl** → `lidl.lt`. **Iki** → `iki.lt`. **Barbora** → `barbora.lt`.
+   - Use `WebSearch` for `"<product name> <shop> kcal"` or `site:maxima.lt <product>`, then `WebFetch`
+     the product page and pull the **per-100 g** kcal + ingredients (and weight, to get the portion total).
+3. **The café/bakery's own site or menu** — search the café name + dish; many publish nutrition or at
+   least portion weight. For a generic café `bandelė`/pastry with no published data, search a
+   comparable product (e.g. "cinamono bandelė kcal") and use that, erring high.
+
+From whatever you find:
+- Use the page's **per-100 g kcal** × the portion weight for `calories` (still err high when the
+  portion is uncertain).
+- Use the **ingredient list** to set `NOVA` — emulsifiers, glaze, margarine, additives, syrups →
+  NOVA 4; cross-check the additive in the Nuodai product endpoint when useful.
+- Note the source in your chat summary (e.g. "kcal iš maxima.lt") so the user can sanity-check.
+
+If nothing usable is online, fall back to a photo/portion estimate and **say so** in the summary.
+
+---
+
 ## Step 4 — Produce the four judgements per entry
 
 ### `calories` (int, kcal)
-Estimate from photos + note + portion cues. **When ambiguous, err high** — pick the upper end of the
-plausible range. The user would rather reject an over-estimate than under-count. For `revise` entries,
+If a shop/café was named, prefer the **real online figure** (Step 3.5: retailer per-100 g kcal ×
+portion weight). Otherwise estimate from photos + note + portion cues. **When ambiguous, err high** —
+pick the upper end of the plausible range. The user would rather reject an over-estimate than under-count. For `revise` entries,
 move in the direction `feedback` asks (e.g. "porcija buvo maža" → lower from `previous.calories`).
 
 ### `AI_description` (short Lithuanian sentence)
