@@ -1,0 +1,8 @@
+# never commit secrets
+secret.php
+.env
+*.key
+.claude/settings.local.json
+
+# scratch image downloads
+/tmp/suvalgiau_*
