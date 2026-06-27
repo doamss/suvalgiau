@@ -265,6 +265,14 @@ soften bad days ("1000 kcal ledų pakelis vidury nakties" is bad — say it plai
   daugiau daržovių ir baltymų, jokių saldumynų, traškučių ir saldžių gėrimų").
 - Keep it ~2–3 sentences (UI panel is small; trimmed to 2000 chars). Strict, factual, useful.
 
+**Sparse days (few entries / very low total calories):** if a day has very few entries (≈1–2) or an
+implausibly low day total, add a brief caveat that the day **may not be fully logged** — do NOT
+assume it was a genuinely light/low-intake day and do NOT praise it as such. e.g. "Įrašų mažai —
+diena greičiausiai nepilnai sužymėta." **Exception:** if the user told you in chat that a specific
+date was a deliberate **fasting day** (only `user_id = 2` / Domas does this, and only when stated
+beforehand), treat the low intake as intentional — skip the "not fully logged" caveat and review it
+as a fast instead. Never assume a fast on your own; require the explicit heads-up.
+
 ### 7e. Submit (batch)
 
 ```bash
