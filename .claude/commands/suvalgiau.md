@@ -214,6 +214,75 @@ process everyone's pending entries).
 
 ---
 
+## Step 7 — Daily summaries for previous days (NEVER today)
+
+After the per-entry work above, also write a **daily summary** for each completed *past* day that
+doesn't have one yet. This is a strict, weight-loss-oriented review of the whole day — not a per-meal
+note.
+
+### 7a. Find days that need a summary
+
+```bash
+curl -s "https://perkubulve.lt/suvalgiau/pending-days.php?key=$SUVALGIAU_BRIDGE_KEY"
+```
+
+Default (`all=0`) returns only days **without** a summary ("empty days") — **scan only these unless
+the user explicitly asks to re-summarize** (then add `&all=1`). Each item:
+`{ user_id, user, date, entry_count, analyzed_count, has_summary }`.
+
+- If this returns a 404 / HTML / non-JSON, the endpoint isn't deployed yet → **skip Step 7 entirely
+  and say so once**. Don't fail the run.
+
+### 7b. Decide which days to summarize
+
+- **NEVER summarize today.** Get today's date at runtime (`date +%F`) and skip any day whose `date`
+  is **>= today**. Only strictly-previous days.
+- Only summarize a day that is **ready**: `analyzed_count === entry_count` (every entry that day is
+  analyzed). Skip days with unanalyzed entries and mention them.
+- Multi-user: a day is per `(user_id, date)` — handle each user's day separately.
+
+### 7c. Get that day's meals
+
+You need the day's entries (calories, AI_description, NOVA, score, meal_type, note) to review them.
+Sources, in order:
+1. Entries you analyzed **earlier in this same run** for that date — reuse them.
+2. A per-entry fetch for that `(user, date)` that includes **analyzed** entries, if the backend
+   supports it (e.g. `pending.php` with a date/status filter that returns status 2–3).
+
+If you genuinely cannot retrieve a day's meals, **skip that day and report it** — never invent a
+summary from the counts alone.
+
+### 7d. Write the summary (`description`) — dry, strict, Lithuanian
+
+Tone: **critical and blunt, aimed at weight loss. No comfort, no praise for the sake of it.** Do not
+soften bad days ("1000 kcal ledų pakelis vidury nakties" is bad — say it plainly). Cover:
+
+- **Overall**: total/approx day calories, balance, NOVA mix (how much ultra-processed vs whole food),
+  junk vs real meals.
+- **Problems, bluntly**: e.g. too much sugar, ultra-processed snacks, refined carbs (white bread,
+  rice, chips), no/too few vegetables, alcohol, eating junk late, calorie excess.
+- **Concrete guidance**: what to **avoid** and what to **eat tomorrow** to compensate (e.g. "rytoj —
+  daugiau daržovių ir baltymų, jokių saldumynų, traškučių ir saldžių gėrimų").
+- Keep it ~2–3 sentences (UI panel is small; trimmed to 2000 chars). Strict, factual, useful.
+
+### 7e. Submit (batch)
+
+```bash
+curl -s -X POST "https://perkubulve.lt/suvalgiau/submit-day-summary.php?key=$SUVALGIAU_BRIDGE_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"items":[{"user_id":2,"date":"2026-06-26","description":"..."}]}'
+```
+
+One item per `(user_id, date)`. Build JSON safely for Lithuanian/UTF-8 (heredoc/file). Response:
+`{ "ok": true, "saved": [...], "skipped": [...] }`. Re-posting the same `(user_id, date)` overwrites.
+
+### 7f. Report
+
+List which day summaries you wrote (per user + date), and which past days you skipped and why
+(not ready / meals unavailable / endpoint missing).
+
+---
+
 ## Notes
 - Re-runs are safe: the server won't overwrite entries you've already approved/analyzed (status 2/3).
   To re-analyze, reject it in the app first (→ status 1) and it returns to the queue.

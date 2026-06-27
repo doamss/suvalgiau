@@ -17,7 +17,10 @@ Run `/suvalgiau` in a Claude Code session. It:
    calories and ingredients instead of guessing.
 4. Produces `{ calories, AI_description, NOVA, score, place }` per entry.
 5. `POST submit-analysis.php` — one batch. Each entry flips to status **2** (awaiting your review).
-6. Prints a summary.
+6. **Daily summaries:** checks `pending-days.php` for completed *past* days without a summary (never
+   today), writes a strict, weight-loss-oriented review of the whole day, and posts it via
+   `submit-day-summary.php`.
+7. Prints a summary.
 
 ### What it estimates
 
@@ -49,6 +52,10 @@ The site exposes three HTTP APIs (full reference in [`docs/`](docs/)):
   (`submit-analysis.php`, keyed).
 - [`docs/API-3-nuodai-nova.md`](docs/API-3-nuodai-nova.md) — public NOVA / ultra-processing lookup
   over ~33k Lithuanian grocery products (`nuodai/api.php`, no key).
+- [`docs/API-4-pending-days.md`](docs/API-4-pending-days.md) — which days still need a daily summary
+  (`pending-days.php`, keyed).
+- [`docs/API-5-submit-day-summary.md`](docs/API-5-submit-day-summary.md) — write a day's summary
+  (`submit-day-summary.php`, keyed).
 
 ## Tuning the analysis
 
