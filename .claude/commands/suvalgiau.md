@@ -197,13 +197,20 @@ avoid breaking the shell quoting). Response: `{ "ok": true, "updated": [...], "s
 
 ## Step 6 — Report
 
+The queue is **multi-user** — each entry carries `user_id` and `user` (display name), so a single run
+may mix several people's meals (e.g. "Domas" and "Ausra"). Submitting is unaffected: `entry_id` is
+globally unique. Show **whose** entry each row is.
+
 Print a compact summary table of what was submitted, e.g.:
 
-| id | place | kcal | NOVA | score | verdict |
-|----|-------|------|------|-------|---------|
+| id | user | place | kcal | NOVA | score | verdict |
+|----|------|-------|------|------|-------|---------|
 
 Then state the `updated` / `skipped` ids from the response. Mention any entry you found hard to
 estimate so the user knows where to look when reviewing in the app.
+
+To analyze just one person, pass their id to `pending.php` via `&user=<id>` (optional — by default
+process everyone's pending entries).
 
 ---
 
