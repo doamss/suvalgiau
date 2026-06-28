@@ -101,6 +101,20 @@ word must appear in the name.
 - If you truly cannot tell and there's no usable signal, prefer the worse plausible grade rather than
   assuming clean.
 
+**Home-cooked dishes — judge by ingredients, don't over-grade.** NOVA classifies by *type of
+processing*, not by who cooked it or whether additives *could* exist. Plain staples are **NOVA 1**
+(minimally processed): flour, plain pasta, rolled oats, rice, fresh curd, eggs, milk, plain meat,
+vegetables, fruit. Butter, oil, salt, sugar are **NOVA 2** (culinary ingredients). So for a dish the
+user clearly cooked from scratch:
+  - All whole foods + basic kitchen staples (e.g. curd + egg + flour + salt + butter) → **NOVA 1‑2**
+    ("minimally processed home cooking"). Do **not** bump it to 3 just because flour or salt is
+    present — flour alone is NOVA 1.
+  - Bump to **NOVA 3** only if a genuinely *processed* component is part of it (shop bread, cheese,
+    a cured/smoked-meat accent, canned/jarred processed food).
+  - Reserve **NOVA 4** for an actual industrial/additive-laden component (sausage/deli meat,
+    emulsified sauce, hydrogenated-oil marinade, packaged mix, glaze, syrup).
+  The "err negative" lean is for genuine ambiguity — not a reason to up-grade clean home cooking.
+
 ---
 
 ## Step 3.5 — When a shop or café is named, look the product up online
