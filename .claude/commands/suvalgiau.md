@@ -182,9 +182,14 @@ what the body needs. Anchor it:
 - Values are clamped 0–100 server-side, but stay in range.
 
 ### `place` (text)
-Where it was eaten, inferred from the note ("Namai", "McDonald's, Vilnius", a café name, etc.). If the
-note gives no venue, infer the best you can (e.g. "Namai" for obviously home food) or use a generic
-label like "Kavinė". Trimmed to 255 chars.
+Where it was eaten, inferred **only from this entry's own note** ("Namai", "McDonald's, Vilnius", a
+café name, etc.). If the note gives no venue, use a generic label ("Namai" for obviously home food,
+else "Kavinė"/"Restoranas"). Trimmed to 255 chars.
+
+**Never infer a place from another user's entries.** Each person's location is independent — do NOT
+put one user at a venue just because another user was there at a similar time (e.g. don't place Ausra
+at "Vilnius Outlet" because Domas logged it). Cross-user context is off-limits for `place`. If a
+user's own note gives no venue, use a generic label rather than borrowing someone else's.
 
 ---
 
@@ -222,6 +227,11 @@ Print a compact summary table of what was submitted, e.g.:
 
 Then state the `updated` / `skipped` ids from the response. Mention any entry you found hard to
 estimate so the user knows where to look when reviewing in the app.
+
+**Chat commentary is only about the user in chat (Domas, `user_id = 2`).** You still analyze and
+submit every user's entries (and write each user's day summary on the site), but in the chat reply do
+**not** add coaching/editorial commentary about other users' food (e.g. Ausra) — just list their rows
+in the table. Save any "what to cut / how the day looked" nudges for Domas's own entries.
 
 To analyze just one person, pass their id to `pending.php` via `&user=<id>` (optional — by default
 process everyone's pending entries).
