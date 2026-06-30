@@ -264,17 +264,33 @@ the user explicitly asks to re-summarize** (then add `&all=1`). Each item:
 - Only summarize a day that is **ready**: `analyzed_count === entry_count` (every entry that day is
   analyzed). Skip days with unanalyzed entries and mention them.
 - Multi-user: a day is per `(user_id, date)` — handle each user's day separately.
+- **Which previous days to (re)write:**
+  1. Every strictly-previous day from `pending-days` with **no summary** (the default `all=0` list).
+  2. **Plus** any strictly-previous `(user, date)` for which you **(re)analyzed or revised an entry
+     in this run** — even if it already has a summary. The user adjusts entries *after* a summary is
+     written (a reject sends the entry back through the queue), so its summary is now stale.
+     `submit-day-summary` upserts, so just overwrite it.
 
-### 7c. Get that day's meals
+### 7c. Get that day's meals — FRESH from the API, not stale cache
 
-You need the day's entries (calories, AI_description, NOVA, score, meal_type, note) to review them.
-Sources, in order:
-1. Entries you analyzed **earlier in this same run** for that date — reuse them.
-2. A per-entry fetch for that `(user, date)` that includes **analyzed** entries, if the backend
-   supports it (e.g. `pending.php` with a date/status filter that returns status 2–3).
+The user may edit/reject entries **after** you analyzed them, so do **not** treat values you computed
+earlier in this run as authoritative for the summary. Get the day's **current** state from the server:
 
-If you genuinely cannot retrieve a day's meals, **skip that day and report it** — never invent a
-summary from the counts alone.
+1. **Always re-fetch `pending-days` at summary time** (don't reuse a stale read) — it reflects the
+   live `entry_count` / `analyzed_count` / `has_summary`. If a day you intended to summarize is no
+   longer "ready" (the user just rejected something), **skip it** — it'll be re-analyzed and
+   re-summarized on a later run.
+2. For the per-meal detail, use the **freshest values you have**: entries you **(re)analyzed in this
+   run** carry the user's latest adjustments (a rejected entry comes back with `feedback` +
+   `previous`, and you redo it) — use those, not earlier copies.
+3. **Known gap:** there is currently no endpoint that returns a *past day's already-analyzed* entries
+   (`pending.php` only returns status 0/1; there is no `entries.php`/`day.php`). So for entries that
+   were analyzed in an **earlier session** and not touched this run, you cannot re-read their current
+   values. If such a day needs summarizing and you have no fresh data for its meals, **skip it and say
+   so** rather than inventing one — and note that a per-day entries endpoint (analyzed included) would
+   let summaries always be built from authoritative fresh data.
+
+Never invent a summary from the counts alone.
 
 ### 7d. Write the summary (`description`) — dry, strict, Lithuanian
 
