@@ -56,6 +56,9 @@ The site exposes three HTTP APIs (full reference in [`docs/`](docs/)):
   (`pending-days.php`, keyed).
 - [`docs/API-5-submit-day-summary.md`](docs/API-5-submit-day-summary.md) — write a day's summary
   (`submit-day-summary.php`, keyed).
+- [`docs/API-6-day.md`](docs/API-6-day.md) — full detail for one day: every entry (all statuses) with
+  current analysis + photos, server-computed stats, and any existing summary (`day.php`, keyed). This
+  is the authoritative source for building daily summaries.
 
 ## Tuning the analysis
 

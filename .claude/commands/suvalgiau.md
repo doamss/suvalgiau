@@ -271,26 +271,29 @@ the user explicitly asks to re-summarize** (then add `&all=1`). Each item:
      written (a reject sends the entry back through the queue), so its summary is now stale.
      `submit-day-summary` upserts, so just overwrite it.
 
-### 7c. Get that day's meals — FRESH from the API, not stale cache
+### 7c. Get that day's meals — FRESH from `day.php` (authoritative)
 
-The user may edit/reject entries **after** you analyzed them, so do **not** treat values you computed
-earlier in this run as authoritative for the summary. Get the day's **current** state from the server:
+The user may edit or reject entries **after** you analyzed them, so **never** summarize from values
+you computed earlier in the run. For each `(user, date)` you're summarizing, pull the day's current
+state from the server:
 
-1. **Always re-fetch `pending-days` at summary time** (don't reuse a stale read) — it reflects the
-   live `entry_count` / `analyzed_count` / `has_summary`. If a day you intended to summarize is no
-   longer "ready" (the user just rejected something), **skip it** — it'll be re-analyzed and
-   re-summarized on a later run.
-2. For the per-meal detail, use the **freshest values you have**: entries you **(re)analyzed in this
-   run** carry the user's latest adjustments (a rejected entry comes back with `feedback` +
-   `previous`, and you redo it) — use those, not earlier copies.
-3. **Known gap:** there is currently no endpoint that returns a *past day's already-analyzed* entries
-   (`pending.php` only returns status 0/1; there is no `entries.php`/`day.php`). So for entries that
-   were analyzed in an **earlier session** and not touched this run, you cannot re-read their current
-   values. If such a day needs summarizing and you have no fresh data for its meals, **skip it and say
-   so** rather than inventing one — and note that a per-day entries endpoint (analyzed included) would
-   let summaries always be built from authoritative fresh data.
+```bash
+curl -s "https://perkubulve.lt/suvalgiau/day.php?key=$SUVALGIAU_BRIDGE_KEY&user=<id>&date=YYYY-MM-DD"
+```
 
-Never invent a summary from the counts alone.
+`day.php` returns **every non-deleted entry that day, all statuses, with their current values**, plus
+server-computed `stats` and any `existing_summary`. Build the summary from THIS response only:
+
+- Use **`stats`** for the day's numbers — `total_kcal`, `avg_score` (kcal-weighted), `nova_pct`
+  (share of calories in N1/N3/N4), `by_meal`. These are server-computed and match the app — do **not**
+  re-add entries by hand or reuse your in-run estimates.
+- Use each entry's current `calories / AI_description / NOVA / score / note / meal_type` to say what
+  was actually eaten.
+- If **`existing_summary`** is non-null (you're refreshing a day whose entries changed), refine it
+  against the current data rather than starting over.
+- If any entry still shows `analyzed: false`, the day isn't ready — **skip it**.
+
+`day.php` is the source of truth; never invent a summary from counts alone.
 
 ### 7d. Write the summary (`description`) — dry, strict, Lithuanian
 
@@ -327,7 +330,7 @@ One item per `(user_id, date)`. Build JSON safely for Lithuanian/UTF-8 (heredoc/
 ### 7f. Report
 
 List which day summaries you wrote (per user + date), and which past days you skipped and why
-(not ready / meals unavailable / endpoint missing).
+(not ready / endpoint missing). Prefer `stats.total_kcal` from `day.php` when you cite a day's total.
 
 ---
 
