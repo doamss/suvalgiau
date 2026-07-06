@@ -244,6 +244,12 @@ After the per-entry work above, also write a **daily summary** for each complete
 doesn't have one yet. This is a strict, weight-loss-oriented review of the whole day — not a per-meal
 note.
 
+**This whole step runs silently in the background.** Do everything below (all users, all their past
+days) but say **nothing** about it in the chat reply — no "skipped today", no "endpoint missing", no
+"not ready", no Ausra summaries. The **only** thing you may mention in chat is that you wrote
+**Domas's** (`user_id = 2`) day summary, and only when you actually wrote one this run. If you didn't
+write a Domas summary, don't mention daily summaries at all.
+
 ### 7a. Find days that need a summary
 
 ```bash
@@ -255,14 +261,14 @@ the user explicitly asks to re-summarize** (then add `&all=1`). Each item:
 `{ user_id, user, date, entry_count, analyzed_count, has_summary }`.
 
 - If this returns a 404 / HTML / non-JSON, the endpoint isn't deployed yet → **skip Step 7 entirely
-  and say so once**. Don't fail the run.
+  and silently**. Don't fail the run, and don't mention it in chat.
 
 ### 7b. Decide which days to summarize
 
 - **NEVER summarize today.** Get today's date at runtime (`date +%F`) and skip any day whose `date`
   is **>= today**. Only strictly-previous days.
 - Only summarize a day that is **ready**: `analyzed_count === entry_count` (every entry that day is
-  analyzed). Skip days with unanalyzed entries and mention them.
+  analyzed). Skip days with unanalyzed entries silently.
 - Multi-user: a day is per `(user_id, date)` — handle each user's day separately.
 - **Which previous days to (re)write:**
   1. Every strictly-previous day from `pending-days` with **no summary** (the default `all=0` list).
@@ -327,10 +333,13 @@ curl -s -X POST "https://perkubulve.lt/suvalgiau/submit-day-summary.php?key=$SUV
 One item per `(user_id, date)`. Build JSON safely for Lithuanian/UTF-8 (heredoc/file). Response:
 `{ "ok": true, "saved": [...], "skipped": [...] }`. Re-posting the same `(user_id, date)` overwrites.
 
-### 7f. Report
+### 7f. Report — Domas only, and only if written
 
-List which day summaries you wrote (per user + date), and which past days you skipped and why
-(not ready / endpoint missing). Prefer `stats.total_kcal` from `day.php` when you cite a day's total.
+Say **nothing** about daily summaries unless you actually wrote **Domas's** (`user_id = 2`) this run.
+If you did, add one short line reporting it (date + a blunt one-liner on how his day looked); prefer
+`stats.total_kcal` from `day.php` when you cite the day's total. Do **not** report other users'
+summaries, skipped days, today, not-ready days, or a missing endpoint — those are all handled
+silently.
 
 ---
 
