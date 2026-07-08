@@ -299,23 +299,34 @@ server-computed `stats`, that day's **`garmin`** wellness block, an **`activitie
   re-add entries by hand or reuse your in-run estimates.
 - Use each entry's current `calories / AI_description / NOVA / score / note / meal_type` to say what
   was actually eaten.
-- Use **`garmin`** (steps, `active_kcal`, `total_kcal_burned`, `resting_hr`, `hrv_ms`, `stress_avg`,
-  `body_battery_high`/`_low`, `sleep_score`, `sleep_min`) and **`activities`** (runs/hikes/etc. with
-  distance, duration, calories, HR) for the `review`. `garmin` is `null` and `activities` is empty
-  when nothing synced — then write a food-only `review` and don't invent wellness numbers.
+- **Same-day metrics** — from date D's own `garmin`/`activities`: `steps`, `distance_m`,
+  `intensity_min`, `active_kcal`, `total_kcal_burned`, `stress_avg` (daytime), `body_battery_low`
+  (evening drain), and that day's workouts. Use these for the **fuel-vs-output** angle (did D's food
+  match D's activity?).
+- **The overnight-lag rule (important).** Garmin stamps a night's sleep, `body_battery_high`, `hrv_ms`
+  and `resting_hr` on the date you **wake up** — so the recovery metrics on date **D reflect the food
+  of date D‑1** (verified: the row dated D's sleep window is the D‑1→D night). Therefore, to judge how
+  **day D's eating** affected recovery, look at **date D+1's** overnight metrics, not D's. Fetch them
+  with `garmin.php?...&user=<id>&date=<D+1>` (or day D+1's `day.php`). If D+1 isn't synced yet (e.g. D
+  is the latest day), say the next-morning recovery is "dar nesužymėta" and skip that pairing.
+  - **Acute → pair D→D+1:** `sleep_score`, `sleep_min`, `body_battery_high`. These respond to the
+    immediately preceding day — a heavy / late / high-sugar / alcohol dinner shows up as worse sleep
+    and a lower morning battery **the next morning**. This is the main food↔wellness link to draw.
+  - **Cumulative → read as a trend, not one night:** `hrv_ms` and `resting_hr` are slow adaptations
+    that move over ~1–2 weeks. Don't attribute a single day's HRV/RHR to one meal; pull a range with
+    `garmin.php?...&from=…&to=…` and describe the drift (e.g. "valgant švariau HRV per 2 savaites
+    kilo nuo ~43 iki ~70, pulsas ramybėje krito nuo ~58 iki ~47").
 - If **`existing_summary.description`** / **`.review`** is non-null (refreshing a changed day), refine
   rather than start over. The two fields update independently — you may POST just one.
-- If any entry still shows `analyzed: false`, the day isn't ready — **skip it**.
+- If any entry still shows `analyzed: false`, the day isn't ready — **skip it**. `garmin` is `null` /
+  `activities` empty when nothing synced — then write a food-only `review`, don't invent numbers.
 
-**Wider trend context:** a single day's sleep/HRV/battery reflects *cumulative* eating, not just that
-day's plate. To read the trend, pull a range with `garmin.php?...&user=<id>&from=YYYY-MM-DD&to=...`
-(and `garmin-activities.php` likewise) rather than judging one day in isolation. The signal the user
-cares about: **cleaner eating → better sleep score, Body Battery recharging to ~100, HRV up, resting
-HR down, lower stress; junk/heavy/late meals → the opposite** (poorer sleep, battery stuck low, HRV
-dip, RHR up). Call these connections out when the data shows them.
+The signal the user cares about: **cleaner eating → better next-morning sleep score and Body Battery,
+and over weeks, higher HRV + lower resting HR; junk / heavy / late meals → the opposite.** Draw the
+D→D+1 link for sleep/battery and the multi-week trend for HRV/RHR.
 
-`day.php` (plus `garmin.php`/`garmin-activities.php` for range) is the source of truth; never invent
-numbers.
+`day.php` (plus `garmin.php`/`garmin-activities.php` for the next day and for ranges) is the source of
+truth; never invent numbers.
 
 ### 7d. Write the two writeups — dry, strict, Lithuanian
 
@@ -331,18 +342,19 @@ sake of it.** Do not soften bad days ("1000 kcal ledų pakelis vidury nakties" i
   daugiau daržovių ir baltymų, jokių saldumynų, traškučių ir saldžių gėrimų").
 
 **`review`** — the longer **food ↔ wellness/activity** review (a short paragraph, trimmed to 6000
-chars). This is where you connect the plate to the body. Cover:
-- **The day's Garmin numbers** plainly: sleep score + duration, Body Battery high/low, HRV, resting
-  HR, avg stress, steps, and any `activities` (run/hike: distance, duration, calories, avg HR).
-- **The food↔wellness link**: explicitly tie the eating to the wellness signal. Clean, whole-food,
-  earlier, moderate-calorie days → note the good sleep score, battery recharging toward ~100, higher
-  HRV, lower resting HR. Junk / heavy / late / high-sugar days → call out poorer sleep, battery stuck
-  low, HRV dip, resting HR up. Where a range trend supports it, say so ("nuo tada, kai maistas
-  švaresnis, HRV kyla, o pulsas ramybėje krito nuo ~58 iki ~47").
-- **Fuel vs activity**: did the day's food match the day's output? A big hike/run on too little or on
-  junk → say it; a clean high-protein day supporting training → credit it.
-- Keep it honest and specific with the actual numbers; don't invent data that `garmin`/`activities`
-  didn't provide (if `garmin` is `null`, write a food-only `review` and say wellness wasn't synced).
+chars). This is where you connect the plate to the body, respecting the **overnight-lag rule** above.
+Cover:
+- **Next-morning recovery (the headline link):** how day D's eating showed up in **D+1's** overnight
+  numbers — sleep score + duration and Body Battery peak. State it as cause→effect ("švari, ankstyva
+  vakarienė → kitos nakties miego balas 91, Body Battery iki 100" / "sunki, vėlyva ultra-perdirbta
+  vakarienė → kitą rytą miego balas nukrito, Body Battery neįsikrovė"). If D+1 isn't synced, say so.
+- **Same-day fuel vs output:** did D's food match D's activity (steps, `active_kcal`, any run/hike:
+  distance, duration, calories, avg HR)? Big output on too little or on junk → say it; clean
+  high-protein day supporting a workout → credit it.
+- **The multi-week trend** for HRV and resting HR (not one night): note the direction over the period
+  ("valgant švariau HRV kyla, pulsas ramybėje krinta").
+- Keep it honest and specific with the actual numbers; never invent data `garmin`/`activities` didn't
+  provide.
 
 **Sparse days (few entries / very low total calories):** if a day has very few entries (≈1–2) or an
 implausibly low day total, add a brief caveat that the day **may not be fully logged** — do NOT
