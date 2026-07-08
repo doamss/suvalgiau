@@ -17,9 +17,10 @@ Run `/suvalgiau` in a Claude Code session. It:
    calories and ingredients instead of guessing.
 4. Produces `{ calories, AI_description, NOVA, score, place }` per entry.
 5. `POST submit-analysis.php` — one batch. Each entry flips to status **2** (awaiting your review).
-6. **Daily summaries:** checks `pending-days.php` for completed *past* days without a summary (never
-   today), writes a strict, weight-loss-oriented review of the whole day, and posts it via
-   `submit-day-summary.php`.
+6. **Daily summaries + wellness review:** checks `pending-days.php` for completed *past* days (never
+   today), pulls each via `day.php` (food + that day's Garmin wellness/activities), and posts two
+   things via `submit-day-summary.php`: a short food `description` and a longer `review` that ties the
+   eating to sleep, Body Battery, HRV, resting HR and any workouts. Runs silently in the background.
 7. Prints a summary.
 
 ### What it estimates
@@ -57,8 +58,12 @@ The site exposes three HTTP APIs (full reference in [`docs/`](docs/)):
 - [`docs/API-5-submit-day-summary.md`](docs/API-5-submit-day-summary.md) — write a day's summary
   (`submit-day-summary.php`, keyed).
 - [`docs/API-6-day.md`](docs/API-6-day.md) — full detail for one day: every entry (all statuses) with
-  current analysis + photos, server-computed stats, and any existing summary (`day.php`, keyed). This
-  is the authoritative source for building daily summaries.
+  current analysis + photos, server-computed stats, that day's Garmin wellness + activities, and any
+  existing summary/review (`day.php`, keyed). Authoritative source for building daily reviews.
+- [`docs/API-7-garmin.md`](docs/API-7-garmin.md) — read Garmin daily wellness (steps, sleep, Body
+  Battery, HRV, resting HR, stress), single day or range (`garmin.php`, keyed).
+- [`docs/API-8-garmin-activities.md`](docs/API-8-garmin-activities.md) — read Garmin activities
+  (runs, hikes, swims…) with distance, duration, calories, HR (`garmin-activities.php`, keyed).
 
 ## Tuning the analysis
 

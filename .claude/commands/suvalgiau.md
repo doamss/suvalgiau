@@ -238,17 +238,20 @@ process everyone's pending entries).
 
 ---
 
-## Step 7 — Daily summaries for previous days (NEVER today)
+## Step 7 — Daily summary + activity/wellness review for previous days (NEVER today)
 
-After the per-entry work above, also write a **daily summary** for each completed *past* day that
-doesn't have one yet. This is a strict, weight-loss-oriented review of the whole day — not a per-meal
-note.
+After the per-entry work above, also write, for each completed *past* day that doesn't have one yet,
+**two things** on the site:
+- **`description`** — a short, strict, weight-loss-oriented review of the day's **food** (as before).
+- **`review`** — a longer review that ties the day's **food to that day's Garmin wellness and
+  activity** (sleep, Body Battery, HRV, resting HR, stress, steps, workouts). This is the new part.
 
 **This whole step runs silently in the background.** Do everything below (all users, all their past
 days) but say **nothing** about it in the chat reply — no "skipped today", no "endpoint missing", no
 "not ready", no Ausra summaries. The **only** thing you may mention in chat is that you wrote
-**Domas's** (`user_id = 2`) day summary, and only when you actually wrote one this run. If you didn't
-write a Domas summary, don't mention daily summaries at all.
+**Domas's** (`user_id = 2`) summary this run, and only when you actually wrote one — one short line
+covering both his food and the food↔wellness/activity link. If you didn't write a Domas summary,
+don't mention it at all.
 
 ### 7a. Find days that need a summary
 
@@ -288,31 +291,58 @@ curl -s "https://perkubulve.lt/suvalgiau/day.php?key=$SUVALGIAU_BRIDGE_KEY&user=
 ```
 
 `day.php` returns **every non-deleted entry that day, all statuses, with their current values**, plus
-server-computed `stats` and any `existing_summary`. Build the summary from THIS response only:
+server-computed `stats`, that day's **`garmin`** wellness block, an **`activities`** array, and any
+`existing_summary` (now `{ description, review }`). Build both writeups from THIS response only:
 
 - Use **`stats`** for the day's numbers — `total_kcal`, `avg_score` (kcal-weighted), `nova_pct`
   (share of calories in N1/N3/N4), `by_meal`. These are server-computed and match the app — do **not**
   re-add entries by hand or reuse your in-run estimates.
 - Use each entry's current `calories / AI_description / NOVA / score / note / meal_type` to say what
   was actually eaten.
-- If **`existing_summary`** is non-null (you're refreshing a day whose entries changed), refine it
-  against the current data rather than starting over.
+- Use **`garmin`** (steps, `active_kcal`, `total_kcal_burned`, `resting_hr`, `hrv_ms`, `stress_avg`,
+  `body_battery_high`/`_low`, `sleep_score`, `sleep_min`) and **`activities`** (runs/hikes/etc. with
+  distance, duration, calories, HR) for the `review`. `garmin` is `null` and `activities` is empty
+  when nothing synced — then write a food-only `review` and don't invent wellness numbers.
+- If **`existing_summary.description`** / **`.review`** is non-null (refreshing a changed day), refine
+  rather than start over. The two fields update independently — you may POST just one.
 - If any entry still shows `analyzed: false`, the day isn't ready — **skip it**.
 
-`day.php` is the source of truth; never invent a summary from counts alone.
+**Wider trend context:** a single day's sleep/HRV/battery reflects *cumulative* eating, not just that
+day's plate. To read the trend, pull a range with `garmin.php?...&user=<id>&from=YYYY-MM-DD&to=...`
+(and `garmin-activities.php` likewise) rather than judging one day in isolation. The signal the user
+cares about: **cleaner eating → better sleep score, Body Battery recharging to ~100, HRV up, resting
+HR down, lower stress; junk/heavy/late meals → the opposite** (poorer sleep, battery stuck low, HRV
+dip, RHR up). Call these connections out when the data shows them.
 
-### 7d. Write the summary (`description`) — dry, strict, Lithuanian
+`day.php` (plus `garmin.php`/`garmin-activities.php` for range) is the source of truth; never invent
+numbers.
 
-Tone: **critical and blunt, aimed at weight loss. No comfort, no praise for the sake of it.** Do not
-soften bad days ("1000 kcal ledų pakelis vidury nakties" is bad — say it plainly). Cover:
+### 7d. Write the two writeups — dry, strict, Lithuanian
 
+Both are Lithuanian. Tone: **critical and blunt, aimed at weight loss. No comfort, no praise for the
+sake of it.** Do not soften bad days ("1000 kcal ledų pakelis vidury nakties" is bad — say it plainly).
+
+**`description`** — the short **food** summary (~2–3 sentences, trimmed to 2000 chars). Cover:
 - **Overall**: total/approx day calories, balance, NOVA mix (how much ultra-processed vs whole food),
   junk vs real meals.
 - **Problems, bluntly**: e.g. too much sugar, ultra-processed snacks, refined carbs (white bread,
   rice, chips), no/too few vegetables, alcohol, eating junk late, calorie excess.
 - **Concrete guidance**: what to **avoid** and what to **eat tomorrow** to compensate (e.g. "rytoj —
   daugiau daržovių ir baltymų, jokių saldumynų, traškučių ir saldžių gėrimų").
-- Keep it ~2–3 sentences (UI panel is small; trimmed to 2000 chars). Strict, factual, useful.
+
+**`review`** — the longer **food ↔ wellness/activity** review (a short paragraph, trimmed to 6000
+chars). This is where you connect the plate to the body. Cover:
+- **The day's Garmin numbers** plainly: sleep score + duration, Body Battery high/low, HRV, resting
+  HR, avg stress, steps, and any `activities` (run/hike: distance, duration, calories, avg HR).
+- **The food↔wellness link**: explicitly tie the eating to the wellness signal. Clean, whole-food,
+  earlier, moderate-calorie days → note the good sleep score, battery recharging toward ~100, higher
+  HRV, lower resting HR. Junk / heavy / late / high-sugar days → call out poorer sleep, battery stuck
+  low, HRV dip, resting HR up. Where a range trend supports it, say so ("nuo tada, kai maistas
+  švaresnis, HRV kyla, o pulsas ramybėje krito nuo ~58 iki ~47").
+- **Fuel vs activity**: did the day's food match the day's output? A big hike/run on too little or on
+  junk → say it; a clean high-protein day supporting training → credit it.
+- Keep it honest and specific with the actual numbers; don't invent data that `garmin`/`activities`
+  didn't provide (if `garmin` is `null`, write a food-only `review` and say wellness wasn't synced).
 
 **Sparse days (few entries / very low total calories):** if a day has very few entries (≈1–2) or an
 implausibly low day total, add a brief caveat that the day **may not be fully logged** — do NOT
@@ -327,19 +357,22 @@ as a fast instead. Never assume a fast on your own; require the explicit heads-u
 ```bash
 curl -s -X POST "https://perkubulve.lt/suvalgiau/submit-day-summary.php?key=$SUVALGIAU_BRIDGE_KEY" \
   -H "Content-Type: application/json" \
-  -d '{"items":[{"user_id":2,"date":"2026-06-26","description":"..."}]}'
+  -d '{"items":[{"user_id":2,"date":"2026-06-26","description":"...","review":"..."}]}'
 ```
 
-One item per `(user_id, date)`. Build JSON safely for Lithuanian/UTF-8 (heredoc/file). Response:
-`{ "ok": true, "saved": [...], "skipped": [...] }`. Re-posting the same `(user_id, date)` overwrites.
+One item per `(user_id, date)`, carrying **both** `description` and `review`. Build JSON safely for
+Lithuanian/UTF-8 (heredoc/file). Response: `{ "ok": true, "saved": [...], "skipped": [...] }`.
+Re-posting the same `(user_id, date)` overwrites; the two fields update **independently** (omitting
+one keeps its stored value), so send both when you have both.
 
 ### 7f. Report — Domas only, and only if written
 
-Say **nothing** about daily summaries unless you actually wrote **Domas's** (`user_id = 2`) this run.
-If you did, add one short line reporting it (date + a blunt one-liner on how his day looked); prefer
-`stats.total_kcal` from `day.php` when you cite the day's total. Do **not** report other users'
-summaries, skipped days, today, not-ready days, or a missing endpoint — those are all handled
-silently.
+Say **nothing** about summaries unless you actually wrote **Domas's** (`user_id = 2`) this run. If you
+did, add one short line per day: the date, a blunt one-liner on how his food looked, and the
+food↔wellness/activity connection you drew (e.g. "07-06: švari diena, ~1550 kcal → miego balas 86,
+Body Battery iki 100, HRV 74"). Prefer `stats.total_kcal` from `day.php` for the day's total. Do
+**not** report other users' summaries, skipped days, today, not-ready days, or a missing endpoint —
+those are all handled silently.
 
 ---
 
