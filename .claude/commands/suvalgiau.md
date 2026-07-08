@@ -259,12 +259,31 @@ don't mention it at all.
 curl -s "https://perkubulve.lt/suvalgiau/pending-days.php?key=$SUVALGIAU_BRIDGE_KEY"
 ```
 
-Default (`all=0`) returns only days **without** a summary ("empty days") — **scan only these unless
-the user explicitly asks to re-summarize** (then add `&all=1`). Each item:
+Default (`all=0`) returns only days **without** a summary ("empty days"). Each item:
 `{ user_id, user, date, entry_count, analyzed_count, has_summary }`.
 
 - If this returns a 404 / HTML / non-JSON, the endpoint isn't deployed yet → **skip Step 7 entirely
   and silently**. Don't fail the run, and don't mention it in chat.
+
+**Also check the latest synced Garmin date** (needed because the user syncs Garmin manually, often
+only every few days — so wellness data lags the food log):
+
+```bash
+curl -s "https://perkubulve.lt/suvalgiau/garmin.php?key=$SUVALGIAU_BRIDGE_KEY&user=<id>" | head
+```
+
+The newest row's `date` is the latest synced day — call it **G**. A day D's `review` needs D+1's
+overnight numbers, so a review can only be written when **D+1 ≤ G**. If Garmin data is missing/behind,
+that's fine — write what you can now and the rest fills in on a later run once the user syncs.
+
+**Two independent passes each run (both silent):**
+1. **`description` (food)** — write for every strictly-previous, ready day that lacks a summary. Never
+   waits on Garmin.
+2. **`review` (food ↔ wellness)** — write only for strictly-previous days where the review is still
+   null **and** `D+1 ≤ G`. This includes **catching up** older days whose food was summarized earlier
+   but whose Garmin only synced now: scan recent strictly-previous days with `&all=1`, and for each
+   whose `existing_summary.review` is null and `D+1 ≤ G`, write the review. Days where `D+1 > G` are
+   left untouched (no note in chat) — a future run picks them up automatically after the next sync.
 
 ### 7b. Decide which days to summarize
 
@@ -274,11 +293,16 @@ the user explicitly asks to re-summarize** (then add `&all=1`). Each item:
   analyzed). Skip days with unanalyzed entries silently.
 - Multi-user: a day is per `(user_id, date)` — handle each user's day separately.
 - **Which previous days to (re)write:**
-  1. Every strictly-previous day from `pending-days` with **no summary** (the default `all=0` list).
-  2. **Plus** any strictly-previous `(user, date)` for which you **(re)analyzed or revised an entry
+  1. Every strictly-previous day from `pending-days` with **no summary** (the default `all=0` list) →
+     write `description` now; write `review` too if `D+1 ≤ G`, else leave review for later.
+  2. **Review catch-up:** strictly-previous days that already have a `description` but a null `review`,
+     now that `D+1 ≤ G` (from the `&all=1` scan in 7a). Write the review only. Only the days newer than
+     G-1 are ever waiting, so scan back just to where reviews are already filled (a ~2-week window is
+     plenty) — no need to re-check the whole history every run.
+  3. **Plus** any strictly-previous `(user, date)` for which you **(re)analyzed or revised an entry
      in this run** — even if it already has a summary. The user adjusts entries *after* a summary is
-     written (a reject sends the entry back through the queue), so its summary is now stale.
-     `submit-day-summary` upserts, so just overwrite it.
+     written (a reject sends the entry back through the queue), so it's now stale. `submit-day-summary`
+     upserts; rewrite `description`, and `review` if `D+1 ≤ G`.
 
 ### 7c. Get that day's meals — FRESH from `day.php` (authoritative)
 
