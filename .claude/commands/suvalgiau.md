@@ -312,6 +312,13 @@ today itself (Step 7b still forbids it). Those belong to D+1's own future review
      in this run** — even if it already has a summary. The user adjusts entries *after* a summary is
      written (a reject sends the entry back through the queue), so it's now stale. `submit-day-summary`
      upserts; rewrite `description`, and `review` if `D+1 ≤ G`.
+  4. **Re-verify the day before yesterday (Garmin settles late).** When you review **yesterday (X)**,
+     also re-check **X‑1** — its Garmin stats may have only fully settled *after* its review was
+     written (late/partial manual syncs, Garmin re-scoring sleep or Body Battery, activities added
+     late). Re-fetch X‑1's `day.php` (its own now-final daytime stats + activities) **and** X's row
+     (X‑1's overnight pairing). Compare the wellness numbers to what X‑1's stored `review` cites: if
+     they **changed materially**, rewrite X‑1's `review`; if unchanged, leave it (no-op, no chat
+     mention). This is a cheap one-day look-back — only X‑1, not the whole history.
 
 ### 7c. Get that day's meals — FRESH from `day.php` (authoritative)
 
