@@ -273,8 +273,17 @@ curl -s "https://perkubulve.lt/suvalgiau/garmin.php?key=$SUVALGIAU_BRIDGE_KEY&us
 ```
 
 The newest row's `date` is the latest synced day — call it **G**. A day D's `review` needs D+1's
-overnight numbers, so a review can only be written when **D+1 ≤ G**. If Garmin data is missing/behind,
-that's fine — write what you can now and the rest fills in on a later run once the user syncs.
+**overnight** numbers (`sleep_score`, `sleep_min`, `body_battery_high`, `hrv_ms`, `resting_hr`), which
+Garmin **sets in the morning** — so they're available as soon as D+1's row exists, **even if D+1 is
+today and still in progress**. So a review can be written once **D+1 ≤ G** (today counts): in practice
+you can review **yesterday** the same morning today's Garmin has synced. Confirm those overnight
+fields are non-null before pairing. If Garmin is behind (D+1 not synced at all), leave the review for
+a later run.
+
+⚠️ **Only the overnight fields of D+1 are definitive in the morning.** D+1's *daytime* stats (`steps`,
+`distance_m`, `floors`, `intensity_min`, `active_kcal`, `total_kcal_burned`, `body_battery_low`,
+`activities`) are **incomplete while D+1 is today** — never use them for anything, and never summarize
+today itself (Step 7b still forbids it). Those belong to D+1's own future review.
 
 **Two independent passes each run (both silent):**
 1. **`description` (food)** — write for every strictly-previous, ready day that lacks a summary. Never
@@ -330,9 +339,13 @@ server-computed `stats`, that day's **`garmin`** wellness block, an **`activitie
 - **The overnight-lag rule (important).** Garmin stamps a night's sleep, `body_battery_high`, `hrv_ms`
   and `resting_hr` on the date you **wake up** — so the recovery metrics on date **D reflect the food
   of date D‑1** (verified: the row dated D's sleep window is the D‑1→D night). Therefore, to judge how
-  **day D's eating** affected recovery, look at **date D+1's** overnight metrics, not D's. Fetch them
-  with `garmin.php?...&user=<id>&date=<D+1>` (or day D+1's `day.php`). If D+1 isn't synced yet (e.g. D
-  is the latest day), say the next-morning recovery is "dar nesužymėta" and skip that pairing.
+  **day D's eating** affected recovery, look at **date D+1's** overnight metrics, not D's. These are
+  **set in the morning**, so they're usable even when D+1 is today. Fetch them with
+  `garmin.php?...&user=<id>&date=<D+1>` (or day D+1's `day.php`). **From D+1's row use ONLY these five
+  morning-definitive fields:** `sleep_score`, `sleep_min`, `body_battery_high`, `hrv_ms`,
+  `resting_hr`. **Ignore every other D+1 field** (steps, active/total kcal, `body_battery_low`,
+  intensity, activities) — if D+1 is today they're incomplete. If those five are null/not synced, say
+  the next-morning recovery is "dar nesužymėta" and skip the pairing.
   - **Acute → pair D→D+1:** `sleep_score`, `sleep_min`, `body_battery_high`. These respond to the
     immediately preceding day — a heavy / late / high-sugar / alcohol dinner shows up as worse sleep
     and a lower morning battery **the next morning**. This is the main food↔wellness link to draw.
@@ -340,6 +353,9 @@ server-computed `stats`, that day's **`garmin`** wellness block, an **`activitie
     that move over ~1–2 weeks. Don't attribute a single day's HRV/RHR to one meal; pull a range with
     `garmin.php?...&from=…&to=…` and describe the drift (e.g. "valgant švariau HRV per 2 savaites
     kilo nuo ~43 iki ~70, pulsas ramybėje krito nuo ~58 iki ~47").
+- **Same-day metrics of D are complete** (D is a finished past day) — use D's own `steps`,
+  `distance_m`, `floors`, `intensity_min`, `active_kcal`, `total_kcal_burned`, `body_battery_low` and
+  `activities` for the fuel-vs-output angle.
 - If **`existing_summary.description`** / **`.review`** is non-null (refreshing a changed day), refine
   rather than start over. The two fields update independently — you may POST just one.
 - If any entry still shows `analyzed: false`, the day isn't ready — **skip it**. `garmin` is `null` /

@@ -43,6 +43,14 @@ GET  https://perkubulve.lt/suvalgiau/garmin.php?key=BRIDGE_KEY&user=ID
 Days are newest-first. Any metric not synced for a day is `null`. With `raw=1`, each day also gets
 a `raw` object (the untouched Garmin response) — useful only if you need a field not in the columns.
 
+**Morning-definitive vs. in-progress fields.** The **current day's** row is available from the
+morning, but only the **overnight** fields are final at that point: `sleep_score`, `sleep_min`,
+`body_battery_high`, `hrv_ms`, `resting_hr` (all measured during the night just ended). The
+**daytime** fields — `steps`, `distance_m`, `floors`, `intensity_min`, `active_kcal`,
+`total_kcal_burned`, `body_battery_low` — keep accumulating until day's end, so for today they're
+**incomplete**; only trust them for days already finished. (This is what lets a daily *review* pair
+yesterday's food with today's already-final overnight recovery numbers.)
+
 ## Notes
 - This is **read-only**. Garmin data is written by the cron sync (`submit-garmin.php`), not the AI.
 - The same per-day Garmin block is also embedded in **`day.php`** (see API-6), so when the session
