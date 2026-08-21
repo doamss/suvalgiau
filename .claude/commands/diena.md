@@ -1,5 +1,5 @@
 ---
-description: Once-a-day review for the suvalgiau food diary — write each past day's food summary and food↔wellness review, re-verify the day before, read the weight/body-composition trend, and refresh the most_used chips.
+description: Once-a-day review for the suvalgiau food diary — write each past day's food summary, food↔wellness review and closing coaching, re-verify the day before, read the weight/body-composition trend, and refresh the most_used chips.
 ---
 
 # /diena — daily review (run once, after syncing Garmin and the scale)
@@ -13,13 +13,19 @@ What this command owns:
 
 1. The daily food **`description`** for each completed past day.
 2. The food↔wellness **`review`** pairing that day's eating with Garmin recovery and activity.
-3. A **re-verify of the day before yesterday**, because Garmin settles late.
-4. The **weight and body-composition** read from Renpho (**Domas only**).
-5. The **`most_used`** quick-pick chips.
+3. The closing **`coaching`** for each past day — the day as a finished thing: what it added up to,
+   what can be learned from it, and what to change going forward.
+4. A **re-verify of the day before yesterday**, because Garmin settles late.
+5. The **weight and body-composition** read from Renpho, for **each user who has data**.
+6. The **`most_used`** quick-pick chips.
 
-What it does **not** own: analysing pending entries, and today's `coaching`. Both belong to
-`/suvalgiau`. Never write `coaching` from here — send only `description` and `review` so the
-`coaching` `/suvalgiau` wrote stays intact.
+What it does **not** own: analysing pending entries, and **today's** `coaching`. Both belong to
+`/suvalgiau`.
+
+**`coaching` splits by date, not by command.** `/suvalgiau` keeps rewriting *today's* `coaching` as
+entries arrive — forward-looking advice for the hours still ahead. `/diena` writes the `coaching` of
+**strictly-previous** days — retrospective, the day closed and totalled. Never touch today's
+`coaching` from here, and never touch a past day's `coaching` from `/suvalgiau`.
 
 **Users:** Domas = `user_id 2`, Ausra = `user_id 3`. Do the work for **both**. In the chat reply,
 report **only Domas's** days — analyse and write Ausra's summaries on the site, but say nothing about
@@ -151,12 +157,13 @@ five are null, say the next-morning recovery is "dar nesužymėta" and skip the 
 
 ---
 
-## Step 4 — Weight and body composition (Domas only)
+## Step 4 — Weight and body composition
 
-**Renpho data is Domas's only** (`user_id = 2`). Never fetch or mention it for another user.
+**Both users have Renpho data.** Fetch it per user and fold the finding into that user's `review`.
+If a user has no measurements at all, skip this step for them silently.
 
 ```bash
-curl -s "https://perkubulve.lt/suvalgiau/renpho.php?key=$SUVALGIAU_BRIDGE_KEY&user=2"
+curl -s "https://perkubulve.lt/suvalgiau/renpho.php?key=$SUVALGIAU_BRIDGE_KEY&user=<id>"
 ```
 
 Returns `{ user_id, from, to, count, measurements: [...] }`, **newest first**. Each measurement:
@@ -164,8 +171,17 @@ Returns `{ user_id, from, to, count, measurements: [...] }`, **newest first**. E
 `muscle_mass_kg`, `bone_mass_kg`, `visceral_fat`, `subcut_fat_pct`, `protein_pct`, `fat_free_kg`,
 `bmr`, `body_age`.
 
-He weighs in the morning, so a measurement dated **D+1** reflects the state after day **D** — the same
-lag as the Garmin overnight fields. Pair it that way.
+**Two data quirks to handle:**
+
+- **Some rows are weight-only** — every composition field is null (an older scale, or a measurement
+  the app didn't fully capture). Use `weight_kg` from those and say nothing about composition; never
+  treat a null as a zero or interpolate one.
+- **Check the time in `measured_at`, not just the date.** The morning pairing below only holds for a
+  morning weigh-in. An evening measurement carries a full day of food and water and is not comparable
+  to a fasted morning one — use it for the long trend only, and don't pair it with a specific day.
+
+**The morning lag.** A *morning* measurement dated **D+1** reflects the state after day **D** — the
+same lag as the Garmin overnight fields. Pair it that way.
 
 Rules for reading it honestly:
 
@@ -177,11 +193,12 @@ Rules for reading it honestly:
   that decides whether the deficit and protein intake are right.
 - **`bmr` falling** alongside weight is expected, but a steep fall signals too aggressive a deficit.
 - Fold the finding into that day's **`review`** in one short paragraph. Don't write a separate field.
-- If there's no measurement for the day (he skipped the scale), say so plainly and skip the pairing.
+- If there's no measurement for the day (the scale was skipped), say so plainly and skip the pairing —
+  the multi-week trend can still be described from the surrounding measurements.
 
 ---
 
-## Step 5 — Write the two writeups — dry, strict, Lithuanian
+## Step 5 — Write the three writeups — dry, strict, Lithuanian
 
 Both are Lithuanian. Tone: **critical and blunt, aimed at weight loss. No comfort, no praise for its
 own sake.** Never soften a bad day — "1000 kcal ledų pakelis vidury nakties" is bad, say it plainly.
@@ -200,8 +217,36 @@ own sake.** Never soften a bad day — "1000 kcal ledų pakelis vidury nakties" 
 - **Same-day fuel vs output**: did the food match the activity? Name the workout with real numbers
   (distance, duration, calories, avg HR), the step count, and the day's actual deficit.
 - **The multi-week HRV and resting-HR drift**, never a single night.
-- **Weight and body composition** (Domas only, Step 4) — the composition split, not the daily number.
+- **Weight and body composition** (Step 4, when that user has data) — the composition split over
+  weeks, not the daily number.
 - Specific, with the real figures. Never invent data `garmin` / `activities` / `renpho` didn't provide.
+
+### `coaching` — the day closed, and what to do with it (a short paragraph, ≤6000 chars)
+
+The retrospective counterpart to the forward-looking `coaching` `/suvalgiau` writes during the day.
+By now the day is finished and every number is final, so **rewrite it rather than leaving whatever
+`/suvalgiau` last wrote** — that text was advice for hours that have since passed.
+
+This is the most useful field of the three, so make it concrete. Cover:
+
+- **What the day actually added up to**: calories against calories burned, the real deficit or
+  surplus, protein, fiber, average score, NOVA mix. Say plainly whether the deficit was in a sensible
+  range, too small, or too aggressive.
+- **What worked and why** — name the specific entries and the specific decision behind them ("pietūs
+  gavo 90 balų, nes buvo pasirinkta jautienos išpjova, o ne vištienos krūtinėlė, ir garnyrui lęšiai,
+  ne gruzdintos bulvės"). Mechanism, not praise.
+- **What cost the day points**, quantified where possible: "vienas wakame garnyras nuleido 750 kcal
+  įrašą nuo ~90 iki 68 balų ir pakėlė dienos NOVA 4 dalį iki 36 %".
+- **The counterfactual** — the same meal or day done better, with the numbers it would have scored.
+  This is what makes the lesson usable next time.
+- **The lesson worth keeping**: a rule, a per-gram rate, a product verdict, a portion size — anything
+  that generalizes beyond this one day.
+- **What to do differently going forward**, in specific terms: not "eat cleaner" but "the same bowl
+  with edamame, cucumber and radish instead of wakame is NOVA 1-2 and ~90 balų".
+- Any **standing issue** that hasn't moved, in one line, without relitigating it every day.
+
+Anchor everything in the day's real figures and the recovery numbers it produced. No comfort, no
+filler, no restating the `description`.
 
 ### Sparse days
 
@@ -216,18 +261,19 @@ day** (only Domas does this), review it as a fast and skip the caveat. Never ass
 
 ## Step 6 — Submit the summaries
 
-One item per `(user_id, date)`, carrying `description` and `review`. **Never send `coaching`** — that
-belongs to `/suvalgiau`, and omitting the key leaves the stored value untouched.
+One item per `(user_id, date)`, carrying `description`, `review` and `coaching` — all three, for
+**strictly-previous** days only. Never send an item whose `date` is today.
 
 ```bash
 curl -s -X POST "https://perkubulve.lt/suvalgiau/submit-day-summary.php?key=$SUVALGIAU_BRIDGE_KEY" \
   -H "Content-Type: application/json" \
-  -d '{"items":[{"user_id":2,"date":"2026-08-20","description":"...","review":"..."}]}'
+  -d '{"items":[{"user_id":2,"date":"2026-08-20","description":"...","review":"...","coaching":"..."}]}'
 ```
 
 Build JSON safely for Lithuanian/UTF-8 (heredoc or a written file). Response:
 `{ "ok": true, "saved": [...], "skipped": [...] }`. Re-posting the same `(user_id, date)` overwrites,
-and the fields update independently — send just `review` when that's all you have.
+and the fields update independently — send just `review` when Garmin only now caught up and the other
+two are already final.
 
 ---
 
@@ -275,8 +321,12 @@ and the food↔wellness link you drew. Prefer `stats.total_kcal` for the day's t
 08-20: 2060 kcal, 147,5 g protein, 33 g fiber → sleep 95, Body Battery 87, HRV 63
 ```
 
-Then, if there was a Renpho measurement, one line on the weight and composition trend — the
-composition split over the window, not the daily number.
+Then the one thing worth carrying forward from his `coaching` — the lesson, the counterfactual, or the
+rule the day produced. One or two sentences, the same register you'd use talking to him directly.
+
+Then, if **Domas** had a Renpho measurement, one line on his weight and composition trend — the
+composition split over the window, not the daily number. Ausra's weight goes into her `review` on the
+site like everything else of hers, and is **never** mentioned in chat.
 
 Do **not** report Ausra's summaries, skipped days, not-ready days, today, the `most_used` refresh, an
 unchanged X‑1 no-op, or a missing endpoint. Those are all silent. If nothing was written for Domas,
@@ -286,8 +336,9 @@ say only what actually happened — don't pad it.
 
 ## Notes
 - Never summarize today, or any date >= today.
-- Never write `coaching` from here; never analyse pending entries from here. That's `/suvalgiau`.
+- Write `coaching` only for **strictly-previous** days. Today's `coaching` belongs to `/suvalgiau`.
+- Never analyse pending entries from here. That's `/suvalgiau`.
 - Never write the bridge key to a tracked file.
 - All user-facing text on the site is Lithuanian; the chat reply is in the user's language.
-- Renpho body-composition data is Domas-only.
+- Both users have Renpho data; write each into their own `review`. Only Domas's is ever discussed in chat.
 - `day.php`, `garmin.php` and `renpho.php` are the source of truth. Never invent a number.

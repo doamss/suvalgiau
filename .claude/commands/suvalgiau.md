@@ -12,10 +12,10 @@ Run mode is **auto-submit all**: fetch → analyze every entry → POST all resu
 print a summary. The user reviews in the app afterward.
 
 **Scope: this command is per-entry only.** It runs many times a day, so it does only the work that new
-entries create — analyse them, submit them, refresh today's `coaching`, and report where Domas's day
-stands. Everything that runs **once a day** lives in **`/diena`**: the daily food `description`, the
-food↔wellness `review`, the two-days-ago re-verify, the weight and body-composition read, and the
-`most_used` chips. Never check whether those are due from here.
+entries create — analyse them, submit them, refresh **today's** `coaching`, and report where Domas's
+day stands. Everything that runs **once a day** lives in **`/diena`**: the daily food `description`,
+the food↔wellness `review`, **past days'** `coaching`, the two-days-ago re-verify, the weight and
+body-composition read, and the `most_used` chips. Never check whether those are due from here.
 
 ---
 
@@ -253,11 +253,12 @@ so for the current day those are stale and understate the day (see Step 7).
 
 ## Step 7 — Refresh today's `coaching` (per user, silent except for Domas)
 
-The **only** day-level write this command makes is today's `coaching` field. Everything else that runs
-once a day — the daily `description`, the food↔wellness `review`, the two-days-ago re-verify, the
-weight/body-composition read and the `most_used` chips — lives in **`/diena`**. Do **not** call
-`pending-days.php` here, do not look for past days that need a summary, and do not touch
-`most_used`. If a past day needs work, the user runs `/diena`.
+The **only** day-level write this command makes is **today's** `coaching` field. Everything else that
+runs once a day — the daily `description`, the food↔wellness `review`, **past days'** `coaching`, the
+two-days-ago re-verify, the weight/body-composition read and the `most_used` chips — lives in
+**`/diena`**. Do **not** call `pending-days.php` here, do not look for past days that need a summary,
+do not rewrite any `coaching` dated before today, and do not touch `most_used`. If a past day needs
+work, the user runs `/diena`.
 
 For **each user who has entries today**, pull the day fresh and rewrite `coaching`:
 
@@ -309,4 +310,5 @@ Write it for every user with entries today; say nothing in chat about anyone but
 - Today's Garmin step/distance/calorie/activity counters are stale (manual morning sync) — never quote
   them or compute a deficit from them. Today's overnight sleep/battery/HRV/resting-HR fields are final
   and fine to use.
-- Daily work (`description`, `review`, X‑1 re-verify, weight review, `most_used`) belongs to `/diena`.
+- Daily work (`description`, `review`, past days' `coaching`, X‑1 re-verify, weight review,
+  `most_used`) belongs to `/diena`. This command writes only today's `coaching`.
