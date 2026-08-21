@@ -435,40 +435,32 @@ those are all handled silently.
 
 ---
 
-## Step 8 — Refresh quick-pick suggestion chips (per user, silent)
+## Step 8 — Refresh the `most_used` quick-pick chips (per user, silent)
 
-After the summaries, refresh the two chip lists shown under the compose box, **once per user**, via
-`submit-suggestions.php` (API 9). Like Step 7, **this whole step runs silently** — never mention it in
-chat, not even for Domas. The chips are just data the app renders; there is nothing to report.
+After the summaries, refresh the **`most_used`** chip list shown under the compose box, **once per
+user**, via `submit-suggestions.php` (API 9). Like Step 7, **this whole step runs silently** — never
+mention it in chat, not even for Domas. The chips are just data the app renders; there is nothing to
+report.
 
-Both lists are **single food items, not meals** — atomic components the user taps to assemble a
+**`from_yesterday` is retired.** The app no longer shows it. Never compute it and never send the
+`from_yesterday` key — omitting a key leaves its stored value untouched, and the stored value is
+already cleared to `[]`.
+
+The list holds **single food items, not meals** — atomic components the user taps to assemble a
 description. Good: `"2 kiaušiniai"`, `"pusė avokado"`, `"virtos bulvės"`, `"graikiškas jogurtas"`.
 Bad (a whole meal in one chip): `"varškėtukai su grietine ir uogomis"`. Keep each ≤60 chars.
 
-There is **no usage database** — derive both lists from the user's logged history in `day.php` (the
+There is **no usage database** — derive the list from the user's logged history in `day.php` (the
 `note` + your `AI_description` per entry). This is stateless and self-correcting: drop something from
-the diet and it ages out on its own. Do this fresh each run; do **not** rely on remembering prior
-runs (sessions start clean).
+the diet and it ages out on its own. Do this fresh; do **not** rely on remembering prior runs
+(sessions start clean).
 
 ### 8a. Which users
 
 Every user who has entries — same ids as everywhere else (Domas = 2, Ausra = 3). Each user's chips are
-independent; never mix one user's foods into another's lists.
+independent; never mix one user's foods into another's list.
 
-### 8b. `from_yesterday` — atomize strictly-yesterday's foods
-
-Yesterday = `date +%F` minus one day (compute at runtime; **not** today). Pull that day per user:
-
-```bash
-curl -s "https://perkubulve.lt/suvalgiau/day.php?key=$SUVALGIAU_BRIDGE_KEY&user=<id>&date=<yesterday>"
-```
-
-Break each entry's food into its **single components** and collect them, in meal order, de-duplicated,
-max 10 (fewer is fine). E.g. an entry "varškėtukai su grietinės-sviesto padažu ir bulviniais blynais"
-becomes `"varškėtukai"`, `"grietinės-sviesto padažas"`, `"bulviniai blynai"`. If the user ate nothing
-yesterday (no entries), send `[]` to clear it.
-
-### 8c. `most_used` — recurring single items over the last 30 days
+### 8b. `most_used` — recurring single items over the last 30 days
 
 Scan the user's **last 30 strictly-previous days**. To avoid fetching empty days, first list which
 recent days actually have entries:
@@ -478,24 +470,24 @@ curl -s "https://perkubulve.lt/suvalgiau/pending-days.php?key=$SUVALGIAU_BRIDGE_
 ```
 
 For each of that user's days within the last 30 (excluding today), fetch `day.php`, atomize every
-entry into single items (as in 8b), and tally how often each item appears **across days**. Take the
-~10 most frequently recurring items as `most_used`, normalized to a short canonical form (e.g. merge
+entry into single items, and tally how often each item appears **across days**. Take the ~10 most
+frequently recurring items as `most_used`, normalized to a short canonical form (e.g. merge
 "2 virti kiaušiniai" / "kiaušiniai" → one chip `"2 kiaušiniai"`). Because the window is a rolling 30
 days, anything the user stopped eating falls out automatically. If a user has almost no history, send
 whatever few staples recur (or `[]`).
 
-### 8d. Submit — one POST per user
+### 8c. Submit — one POST per user
 
 ```bash
 curl -s -X POST "https://perkubulve.lt/suvalgiau/submit-suggestions.php?key=$SUVALGIAU_BRIDGE_KEY" \
   -H "Content-Type: application/json" \
-  -d '{"user_id":2,"most_used":["2 kiaušiniai","avokadas", "..."],"from_yesterday":["varškėtukai","..."]}'
+  -d '{"user_id":2,"most_used":["2 kiaušiniai","avokadas", "..."]}'
 ```
 
-Build JSON safely for Lithuanian/UTF-8 (heredoc/file). Response echoes the stored lists:
-`{ "ok": true, "most_used": [...], "from_yesterday": [...] }`. Overwrites in place; each list is
-replaced wholesale. Omit a key to leave it unchanged; send `[]` to clear. Do this for every user, then
-say nothing about it.
+Send **only** the `most_used` key. Build JSON safely for Lithuanian/UTF-8 (heredoc/file). Response
+echoes the stored lists: `{ "ok": true, "most_used": [...], "from_yesterday": [...] }` — ignore the
+`from_yesterday` echo. `most_used` is overwritten in place, replaced wholesale. Do this for every
+user, then say nothing about it.
 
 ---
 
