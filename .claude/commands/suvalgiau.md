@@ -11,6 +11,12 @@ judge it, and write the results back. The user then approves or rejects each res
 Run mode is **auto-submit all**: fetch → analyze every entry → POST all results in one batch →
 print a summary. The user reviews in the app afterward.
 
+**Scope: this command is per-entry only.** It runs many times a day, so it does only the work that new
+entries create — analyse them, submit them, refresh today's `coaching`, and report where Domas's day
+stands. Everything that runs **once a day** lives in **`/diena`**: the daily food `description`, the
+food↔wellness `review`, the two-days-ago re-verify, the weight and body-composition read, and the
+`most_used` chips. Never check whether those are due from here.
+
 ---
 
 ## Step 0 — Get the bridge key
@@ -236,258 +242,62 @@ in the table. Save any "what to cut / how the day looked" nudges for Domas's own
 To analyze just one person, pass their id to `pending.php` via `&user=<id>` (optional — by default
 process everyone's pending entries).
 
+**Then report Domas's own day status in chat** (`user_id = 2`), from his `day.php` `stats` for today:
+total calories, protein, fiber, average score and NOVA mix so far, plus what is still open — how much
+protein is left to reach ~130 g and roughly how many calories of room remain. Quote this morning's
+`sleep_score` / `sleep_min` / `body_battery_high` / `hrv_ms` / `resting_hr` when they add something.
+**Never quote today's Garmin step/calorie/activity counters** — the user syncs manually in the morning,
+so for the current day those are stale and understate the day (see Step 7).
+
 ---
 
-## Step 7 — Daily summary + activity/wellness review for previous days (NEVER today)
+## Step 7 — Refresh today's `coaching` (per user, silent except for Domas)
 
-After the per-entry work above, also write, for each completed *past* day that doesn't have one yet,
-**two things** on the site:
-- **`description`** — a short, strict, weight-loss-oriented review of the day's **food** (as before).
-- **`review`** — a longer review that ties the day's **food to that day's Garmin wellness and
-  activity** (sleep, Body Battery, HRV, resting HR, stress, steps, workouts). This is the new part.
+The **only** day-level write this command makes is today's `coaching` field. Everything else that runs
+once a day — the daily `description`, the food↔wellness `review`, the two-days-ago re-verify, the
+weight/body-composition read and the `most_used` chips — lives in **`/diena`**. Do **not** call
+`pending-days.php` here, do not look for past days that need a summary, and do not touch
+`most_used`. If a past day needs work, the user runs `/diena`.
 
-**This whole step runs silently in the background.** Do everything below (all users, all their past
-days) but say **nothing** about it in the chat reply — no "skipped today", no "endpoint missing", no
-"not ready", no Ausra summaries. The **only** thing you may mention in chat is that you wrote
-**Domas's** (`user_id = 2`) summary this run, and only when you actually wrote one — one short line
-covering both his food and the food↔wellness/activity link. If you didn't write a Domas summary,
-don't mention it at all.
-
-### 7a. Find days that need a summary
+For **each user who has entries today**, pull the day fresh and rewrite `coaching`:
 
 ```bash
-curl -s "https://perkubulve.lt/suvalgiau/pending-days.php?key=$SUVALGIAU_BRIDGE_KEY"
+curl -s "https://perkubulve.lt/suvalgiau/day.php?key=$SUVALGIAU_BRIDGE_KEY&user=<id>&date=$(date +%F)"
 ```
 
-Default (`all=0`) returns only days **without** a summary ("empty days"). Each item:
-`{ user_id, user, date, entry_count, analyzed_count, has_summary }`.
+Use `stats` for the day's numbers (`total_kcal`, `total_protein_g`, `total_fiber_g`, `avg_score`,
+`nova_pct`, `by_meal`) — server-computed, matches the app, never re-add entries by hand.
 
-- If this returns a 404 / HTML / non-JSON, the endpoint isn't deployed yet → **skip Step 7 entirely
-  and silently**. Don't fail the run, and don't mention it in chat.
+**⚠️ Today's Garmin daytime counters are stale and must be ignored.** The user syncs Garmin manually,
+usually in the morning, so for the **current day** `steps`, `distance_m`, `floors`, `intensity_min`,
+`active_kcal`, `total_kcal_burned`, `body_battery_low` and `activities` reflect only the hours up to
+that sync — never the whole day. Never quote them, never compute a deficit from them, never call the
+day sedentary because of them.
 
-**Also check the latest synced Garmin date** (needed because the user syncs Garmin manually, often
-only every few days — so wellness data lags the food log):
+**Today's overnight fields are fine** — Garmin stamps `sleep_score`, `sleep_min`,
+`body_battery_high`, `hrv_ms` and `resting_hr` in the morning and they are final once synced. Use
+those freely: they describe how last night went, which is exactly the feedback the day starts from.
 
-```bash
-curl -s "https://perkubulve.lt/suvalgiau/garmin.php?key=$SUVALGIAU_BRIDGE_KEY&user=<id>" | head
-```
+`coaching` is Lithuanian, blunt, weight-loss-oriented, and **forward-looking** — it is advice for the
+rest of today, not a post-mortem. Cover:
 
-The newest row's `date` is the latest synced day — call it **G**. A day D's `review` needs D+1's
-**overnight** numbers (`sleep_score`, `sleep_min`, `body_battery_high`, `hrv_ms`, `resting_hr`), which
-Garmin **sets in the morning** — so they're available as soon as D+1's row exists, **even if D+1 is
-today and still in progress**. So a review can be written once **D+1 ≤ G** (today counts): in practice
-you can review **yesterday** the same morning today's Garmin has synced. Confirm those overnight
-fields are non-null before pairing. If Garmin is behind (D+1 not synced at all), leave the review for
-a later run.
+- **Where the day stands**: calories, protein, fiber, average score, NOVA mix so far.
+- **What the best and worst entries were**, and specifically what made them so.
+- **What is still needed before bed**: how much protein is left to reach ~130 g, roughly how many
+  calories of room remain, and a concrete suggestion or two that fits.
+- **This morning's recovery numbers** and what they imply for today (train / go easy / sleep earlier).
+- Any standing issue worth one line (e.g. resistance training still not started).
 
-⚠️ **Only the overnight fields of D+1 are definitive in the morning.** D+1's *daytime* stats (`steps`,
-`distance_m`, `floors`, `intensity_min`, `active_kcal`, `total_kcal_burned`, `body_battery_low`,
-`activities`) are **incomplete while D+1 is today** — never use them for anything, and never summarize
-today itself (Step 7b still forbids it). Those belong to D+1's own future review.
-
-**Two independent passes each run (both silent):**
-1. **`description` (food)** — write for every strictly-previous, ready day that lacks a summary. Never
-   waits on Garmin.
-2. **`review` (food ↔ wellness)** — write only for strictly-previous days where the review is still
-   null **and** `D+1 ≤ G`. This includes **catching up** older days whose food was summarized earlier
-   but whose Garmin only synced now: scan recent strictly-previous days with `&all=1`, and for each
-   whose `existing_summary.review` is null and `D+1 ≤ G`, write the review. Days where `D+1 > G` are
-   left untouched (no note in chat) — a future run picks them up automatically after the next sync.
-
-### 7b. Decide which days to summarize
-
-- **NEVER summarize today.** Get today's date at runtime (`date +%F`) and skip any day whose `date`
-  is **>= today**. Only strictly-previous days.
-- Only summarize a day that is **ready**: `analyzed_count === entry_count` (every entry that day is
-  analyzed). Skip days with unanalyzed entries silently.
-- Multi-user: a day is per `(user_id, date)` — handle each user's day separately.
-- **Which previous days to (re)write:**
-  1. Every strictly-previous day from `pending-days` with **no summary** (the default `all=0` list) →
-     write `description` now; write `review` too if `D+1 ≤ G`, else leave review for later.
-  2. **Review catch-up:** strictly-previous days that already have a `description` but a null `review`,
-     now that `D+1 ≤ G` (from the `&all=1` scan in 7a). Write the review only. Only the days newer than
-     G-1 are ever waiting, so scan back just to where reviews are already filled (a ~2-week window is
-     plenty) — no need to re-check the whole history every run.
-  3. **Plus** any strictly-previous `(user, date)` for which you **(re)analyzed or revised an entry
-     in this run** — even if it already has a summary. The user adjusts entries *after* a summary is
-     written (a reject sends the entry back through the queue), so it's now stale. `submit-day-summary`
-     upserts; rewrite `description`, and `review` if `D+1 ≤ G`.
-  4. **Re-verify the day before yesterday (Garmin settles late).** When you review **yesterday (X)**,
-     also re-check **X‑1** — its Garmin stats may have only fully settled *after* its review was
-     written (late/partial manual syncs, Garmin re-scoring sleep or Body Battery, activities added
-     late). Re-fetch X‑1's `day.php` (its own now-final daytime stats + activities) **and** X's row
-     (X‑1's overnight pairing). Compare the wellness numbers to what X‑1's stored `review` cites: if
-     they **changed materially**, rewrite X‑1's `review`; if unchanged, leave it (no-op, no chat
-     mention). This is a cheap one-day look-back — only X‑1, not the whole history.
-
-### 7c. Get that day's meals — FRESH from `day.php` (authoritative)
-
-The user may edit or reject entries **after** you analyzed them, so **never** summarize from values
-you computed earlier in the run. For each `(user, date)` you're summarizing, pull the day's current
-state from the server:
-
-```bash
-curl -s "https://perkubulve.lt/suvalgiau/day.php?key=$SUVALGIAU_BRIDGE_KEY&user=<id>&date=YYYY-MM-DD"
-```
-
-`day.php` returns **every non-deleted entry that day, all statuses, with their current values**, plus
-server-computed `stats`, that day's **`garmin`** wellness block, an **`activities`** array, and any
-`existing_summary` (now `{ description, review }`). Build both writeups from THIS response only:
-
-- Use **`stats`** for the day's numbers — `total_kcal`, `avg_score` (kcal-weighted), `nova_pct`
-  (share of calories in N1/N3/N4), `by_meal`. These are server-computed and match the app — do **not**
-  re-add entries by hand or reuse your in-run estimates.
-- Use each entry's current `calories / AI_description / NOVA / score / note / meal_type` to say what
-  was actually eaten.
-- **Same-day metrics** — from date D's own `garmin`/`activities`: `steps`, `distance_m`,
-  `intensity_min`, `active_kcal`, `total_kcal_burned`, `stress_avg` (daytime), `body_battery_low`
-  (evening drain), and that day's workouts. Use these for the **fuel-vs-output** angle (did D's food
-  match D's activity?).
-- **The overnight-lag rule (important).** Garmin stamps a night's sleep, `body_battery_high`, `hrv_ms`
-  and `resting_hr` on the date you **wake up** — so the recovery metrics on date **D reflect the food
-  of date D‑1** (verified: the row dated D's sleep window is the D‑1→D night). Therefore, to judge how
-  **day D's eating** affected recovery, look at **date D+1's** overnight metrics, not D's. These are
-  **set in the morning**, so they're usable even when D+1 is today. Fetch them with
-  `garmin.php?...&user=<id>&date=<D+1>` (or day D+1's `day.php`). **From D+1's row use ONLY these five
-  morning-definitive fields:** `sleep_score`, `sleep_min`, `body_battery_high`, `hrv_ms`,
-  `resting_hr`. **Ignore every other D+1 field** (steps, active/total kcal, `body_battery_low`,
-  intensity, activities) — if D+1 is today they're incomplete. If those five are null/not synced, say
-  the next-morning recovery is "dar nesužymėta" and skip the pairing.
-  - **Acute → pair D→D+1:** `sleep_score`, `sleep_min`, `body_battery_high`. These respond to the
-    immediately preceding day — a heavy / late / high-sugar / alcohol dinner shows up as worse sleep
-    and a lower morning battery **the next morning**. This is the main food↔wellness link to draw.
-  - **Cumulative → read as a trend, not one night:** `hrv_ms` and `resting_hr` are slow adaptations
-    that move over ~1–2 weeks. Don't attribute a single day's HRV/RHR to one meal; pull a range with
-    `garmin.php?...&from=…&to=…` and describe the drift (e.g. "valgant švariau HRV per 2 savaites
-    kilo nuo ~43 iki ~70, pulsas ramybėje krito nuo ~58 iki ~47").
-- **Same-day metrics of D are complete** (D is a finished past day) — use D's own `steps`,
-  `distance_m`, `floors`, `intensity_min`, `active_kcal`, `total_kcal_burned`, `body_battery_low` and
-  `activities` for the fuel-vs-output angle.
-- If **`existing_summary.description`** / **`.review`** is non-null (refreshing a changed day), refine
-  rather than start over. The two fields update independently — you may POST just one.
-- If any entry still shows `analyzed: false`, the day isn't ready — **skip it**. `garmin` is `null` /
-  `activities` empty when nothing synced — then write a food-only `review`, don't invent numbers.
-
-The signal the user cares about: **cleaner eating → better next-morning sleep score and Body Battery,
-and over weeks, higher HRV + lower resting HR; junk / heavy / late meals → the opposite.** Draw the
-D→D+1 link for sleep/battery and the multi-week trend for HRV/RHR.
-
-`day.php` (plus `garmin.php`/`garmin-activities.php` for the next day and for ranges) is the source of
-truth; never invent numbers.
-
-### 7d. Write the two writeups — dry, strict, Lithuanian
-
-Both are Lithuanian. Tone: **critical and blunt, aimed at weight loss. No comfort, no praise for the
-sake of it.** Do not soften bad days ("1000 kcal ledų pakelis vidury nakties" is bad — say it plainly).
-
-**`description`** — the short **food** summary (~2–3 sentences, trimmed to 2000 chars). Cover:
-- **Overall**: total/approx day calories, balance, NOVA mix (how much ultra-processed vs whole food),
-  junk vs real meals.
-- **Problems, bluntly**: e.g. too much sugar, ultra-processed snacks, refined carbs (white bread,
-  rice, chips), no/too few vegetables, alcohol, eating junk late, calorie excess.
-- **Concrete guidance**: what to **avoid** and what to **eat tomorrow** to compensate (e.g. "rytoj —
-  daugiau daržovių ir baltymų, jokių saldumynų, traškučių ir saldžių gėrimų").
-
-**`review`** — the longer **food ↔ wellness/activity** review (a short paragraph, trimmed to 6000
-chars). This is where you connect the plate to the body, respecting the **overnight-lag rule** above.
-Cover:
-- **Next-morning recovery (the headline link):** how day D's eating showed up in **D+1's** overnight
-  numbers — sleep score + duration and Body Battery peak. State it as cause→effect ("švari, ankstyva
-  vakarienė → kitos nakties miego balas 91, Body Battery iki 100" / "sunki, vėlyva ultra-perdirbta
-  vakarienė → kitą rytą miego balas nukrito, Body Battery neįsikrovė"). If D+1 isn't synced, say so.
-- **Same-day fuel vs output:** did D's food match D's activity (steps, `active_kcal`, any run/hike:
-  distance, duration, calories, avg HR)? Big output on too little or on junk → say it; clean
-  high-protein day supporting a workout → credit it.
-- **The multi-week trend** for HRV and resting HR (not one night): note the direction over the period
-  ("valgant švariau HRV kyla, pulsas ramybėje krinta").
-- Keep it honest and specific with the actual numbers; never invent data `garmin`/`activities` didn't
-  provide.
-
-**Sparse days (few entries / very low total calories):** if a day has very few entries (≈1–2) or an
-implausibly low day total, add a brief caveat that the day **may not be fully logged** — do NOT
-assume it was a genuinely light/low-intake day and do NOT praise it as such. e.g. "Įrašų mažai —
-diena greičiausiai nepilnai sužymėta." **Exception:** if the user told you in chat that a specific
-date was a deliberate **fasting day** (only `user_id = 2` / Domas does this, and only when stated
-beforehand), treat the low intake as intentional — skip the "not fully logged" caveat and review it
-as a fast instead. Never assume a fast on your own; require the explicit heads-up.
-
-### 7e. Submit (batch)
+Re-posting the same `(user_id, date)` overwrites, and the fields update independently — send **only**
+`coaching` so the stored `description` and `review` are left untouched:
 
 ```bash
 curl -s -X POST "https://perkubulve.lt/suvalgiau/submit-day-summary.php?key=$SUVALGIAU_BRIDGE_KEY" \
   -H "Content-Type: application/json" \
-  -d '{"items":[{"user_id":2,"date":"2026-06-26","description":"...","review":"..."}]}'
+  -d '{"items":[{"user_id":2,"date":"2026-08-21","coaching":"..."}]}'
 ```
 
-One item per `(user_id, date)`, carrying **both** `description` and `review`. Build JSON safely for
-Lithuanian/UTF-8 (heredoc/file). Response: `{ "ok": true, "saved": [...], "skipped": [...] }`.
-Re-posting the same `(user_id, date)` overwrites; the two fields update **independently** (omitting
-one keeps its stored value), so send both when you have both.
-
-### 7f. Report — Domas only, and only if written
-
-Say **nothing** about summaries unless you actually wrote **Domas's** (`user_id = 2`) this run. If you
-did, add one short line per day: the date, a blunt one-liner on how his food looked, and the
-food↔wellness/activity connection you drew (e.g. "07-06: švari diena, ~1550 kcal → miego balas 86,
-Body Battery iki 100, HRV 74"). Prefer `stats.total_kcal` from `day.php` for the day's total. Do
-**not** report other users' summaries, skipped days, today, not-ready days, or a missing endpoint —
-those are all handled silently.
-
----
-
-## Step 8 — Refresh the `most_used` quick-pick chips (per user, silent)
-
-After the summaries, refresh the **`most_used`** chip list shown under the compose box, **once per
-user**, via `submit-suggestions.php` (API 9). Like Step 7, **this whole step runs silently** — never
-mention it in chat, not even for Domas. The chips are just data the app renders; there is nothing to
-report.
-
-**`from_yesterday` is retired.** The app no longer shows it. Never compute it and never send the
-`from_yesterday` key — omitting a key leaves its stored value untouched, and the stored value is
-already cleared to `[]`.
-
-The list holds **single food items, not meals** — atomic components the user taps to assemble a
-description. Good: `"2 kiaušiniai"`, `"pusė avokado"`, `"virtos bulvės"`, `"graikiškas jogurtas"`.
-Bad (a whole meal in one chip): `"varškėtukai su grietine ir uogomis"`. Keep each ≤60 chars.
-
-There is **no usage database** — derive the list from the user's logged history in `day.php` (the
-`note` + your `AI_description` per entry). This is stateless and self-correcting: drop something from
-the diet and it ages out on its own. Do this fresh; do **not** rely on remembering prior runs
-(sessions start clean).
-
-### 8a. Which users
-
-Every user who has entries — same ids as everywhere else (Domas = 2, Ausra = 3). Each user's chips are
-independent; never mix one user's foods into another's list.
-
-### 8b. `most_used` — recurring single items over the last 30 days
-
-Scan the user's **last 30 strictly-previous days**. To avoid fetching empty days, first list which
-recent days actually have entries:
-
-```bash
-curl -s "https://perkubulve.lt/suvalgiau/pending-days.php?key=$SUVALGIAU_BRIDGE_KEY&all=1&user=<id>"
-```
-
-For each of that user's days within the last 30 (excluding today), fetch `day.php`, atomize every
-entry into single items, and tally how often each item appears **across days**. Take the ~10 most
-frequently recurring items as `most_used`, normalized to a short canonical form (e.g. merge
-"2 virti kiaušiniai" / "kiaušiniai" → one chip `"2 kiaušiniai"`). Because the window is a rolling 30
-days, anything the user stopped eating falls out automatically. If a user has almost no history, send
-whatever few staples recur (or `[]`).
-
-### 8c. Submit — one POST per user
-
-```bash
-curl -s -X POST "https://perkubulve.lt/suvalgiau/submit-suggestions.php?key=$SUVALGIAU_BRIDGE_KEY" \
-  -H "Content-Type: application/json" \
-  -d '{"user_id":2,"most_used":["2 kiaušiniai","avokadas", "..."]}'
-```
-
-Send **only** the `most_used` key. Build JSON safely for Lithuanian/UTF-8 (heredoc/file). Response
-echoes the stored lists: `{ "ok": true, "most_used": [...], "from_yesterday": [...] }` — ignore the
-`from_yesterday` echo. `most_used` is overwritten in place, replaced wholesale. Do this for every
-user, then say nothing about it.
+Write it for every user with entries today; say nothing in chat about anyone but Domas.
 
 ---
 
@@ -496,3 +306,7 @@ user, then say nothing about it.
   To re-analyze, reject it in the app first (→ status 1) and it returns to the queue.
 - Never write the bridge key to a tracked file.
 - Keep all user-facing food text in Lithuanian; keep the chat summary in the user's language.
+- Today's Garmin step/distance/calorie/activity counters are stale (manual morning sync) — never quote
+  them or compute a deficit from them. Today's overnight sleep/battery/HRV/resting-HR fields are final
+  and fine to use.
+- Daily work (`description`, `review`, X‑1 re-verify, weight review, `most_used`) belongs to `/diena`.
