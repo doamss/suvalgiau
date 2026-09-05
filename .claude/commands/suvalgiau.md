@@ -306,7 +306,11 @@ Write it for every user with entries today; say nothing in chat about anyone but
 - Re-runs are safe: the server won't overwrite entries you've already approved/analyzed (status 2/3).
   To re-analyze, reject it in the app first (→ status 1) and it returns to the queue.
 - Never write the bridge key to a tracked file.
-- Keep all user-facing food text in Lithuanian; keep the chat summary in the user's language.
+- **Language is split by destination, always.** Everything written to the site — `AI_description`,
+  `coaching`, `description`, `review`, `most_used` — is **Lithuanian**. Everything written in the chat
+  reply is **English**, including table headers, table cells, food names and figures. Never mix
+  Lithuanian words or phrases into the chat reply; quote a stored Lithuanian line only when the user
+  explicitly asks to see what was written to the site.
 - Today's Garmin step/distance/calorie/activity counters are stale (manual morning sync) — never quote
   them or compute a deficit from them. Today's overnight sleep/battery/HRV/resting-HR fields are final
   and fine to use.

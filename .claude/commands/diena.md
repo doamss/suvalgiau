@@ -339,6 +339,9 @@ say only what actually happened — don't pad it.
 - Write `coaching` only for **strictly-previous** days. Today's `coaching` belongs to `/suvalgiau`.
 - Never analyse pending entries from here. That's `/suvalgiau`.
 - Never write the bridge key to a tracked file.
-- All user-facing text on the site is Lithuanian; the chat reply is in the user's language.
+- **Language is split by destination, always.** Everything written to the site — `description`,
+  `review`, `coaching`, `most_used` — is **Lithuanian**. The chat reply is **English**, including the
+  per-day one-liners, food names and figures. Never mix Lithuanian words or phrases into the chat
+  reply; quote a stored Lithuanian line only when the user explicitly asks to see it.
 - Both users have Renpho data; write each into their own `review`. Only Domas's is ever discussed in chat.
 - `day.php`, `garmin.php` and `renpho.php` are the source of truth. Never invent a number.
