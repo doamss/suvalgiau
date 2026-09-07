@@ -306,6 +306,9 @@ Write it for every user with entries today; say nothing in chat about anyone but
 - Re-runs are safe: the server won't overwrite entries you've already approved/analyzed (status 2/3).
   To re-analyze, reject it in the app first (→ status 1) and it returns to the queue.
 - Never write the bridge key to a tracked file.
+- **Terminology in the chat reply.** `varškė` is **curd** in English, not "quark" — curd is the drier,
+  granular Lithuanian product (Žemaitijos, Dvaro, Pilos, Amfora). Reserve "quark" for products actually
+  sold as quark/kvarg (e.g. Lindahls). Same for `grietinė` = sour cream, `varškės sūris` = curd cheese.
 - **Language is split by destination, always.** Everything written to the site — `AI_description`,
   `coaching`, `description`, `review`, `most_used` — is **Lithuanian**. Everything written in the chat
   reply is **English**, including table headers, table cells, food names and figures. Never mix
