@@ -231,13 +231,19 @@ Print a compact summary table of what was submitted, e.g.:
 | id | user | place | kcal | NOVA | score | verdict |
 |----|------|-------|------|------|-------|---------|
 
-Then state the `updated` / `skipped` ids from the response. Mention any entry you found hard to
-estimate so the user knows where to look when reviewing in the app.
+Then state the `updated` / `skipped` ids from the response. Mention an entry you found hard to
+estimate **only when it is Domas's own** — he can act on that one. Never flag uncertainty, ask a
+question, or raise a judgement call about anyone else's entry in chat: he cannot see their food and
+cannot answer. Resolve those calls yourself, write the result to the site, and leave the chat silent.
 
 **Chat commentary is only about the user in chat (Domas, `user_id = 2`).** You still analyze and
 submit every user's entries (and write each user's day summary on the site), but in the chat reply do
 **not** add coaching/editorial commentary about other users' food (e.g. Ausra) — just list their rows
 in the table. Save any "what to cut / how the day looked" nudges for Domas's own entries.
+
+**Never ask Domas a question in the chat reply.** Not about portions, not about ingredients, not
+about anyone else's entries. Decide, submit, report. He often eats the same meal as Ausra — when that
+matters, infer it from the data rather than asking.
 
 To analyze just one person, pass their id to `pending.php` via `&user=<id>` (optional — by default
 process everyone's pending entries).
