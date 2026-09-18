@@ -87,6 +87,14 @@ curl -s "https://perkubulve.lt/nuodai/api.php?action=product&id=<id>"
 Use `rating.code` for the NOVA code. Lithuanian letters are folded in search (`ž→z`), every query
 word must appear in the name.
 
+**One known limit of Nuodai.** It grades by scanning the ingredient list for ultra-processing
+markers, so a food whose ingredients are all group 1–2 comes back `1-2` even when the *process* puts
+it in group 3. Canned fish in brine (tuna, water, salt), canned legumes, olives and plain cheese all
+return `1-2` there while the NOVA framework calls them group 3 — preserving a whole food with salt
+and heat is the definition of group 3. For these, trust the process, not the ingredient scan: grade
+the item **3** and use the **3-high** scoring sub-band (Step 4), which is where it belongs. Nuodai is
+still the authority on additives and on anything genuinely ultra-processed.
+
 **How to assign NOVA to a diary entry (which is a *meal*, not a single barcode):**
 
 - **Packaged / branded product** (a named drink, snack, bar, sauce, ready meal) → look it up and use
@@ -175,8 +183,26 @@ The code from Step 3: `"1-2"`, `"3"`, or `"4A"`/`"4B"`/`"4C"`/`"4D"`.
 0 = junk that would be better thrown away; 100 = excellent food actively improving health, full of
 what the body needs. Anchor it:
 
-- **Start from NOVA**: NOVA 1–2 → ceiling ~100; NOVA 3 → ceiling ~70; NOVA 4 → ceiling ~40 (4A) down
-  to ~10 (4D).
+- **Start from NOVA**: NOVA 1–2 → ceiling ~100; NOVA 3 → ceiling depends on the sub-band below;
+  NOVA 4 → ceiling ~40 (4A) down to ~10 (4D).
+
+**NOVA 3 sub-bands.** Group 3 spans everything from canned tuna to a white-bread sandwich, so one
+ceiling is too blunt. Pick the ceiling by **what the group-3 processing did to the food**, then score
+within it on nutrition as usual:
+
+  - **3-high → ceiling ~90.** Preserved whole food: the process added salt or heat and removed
+    nothing. Canned fish in brine/water, canned legumes, canned tomatoes, olives, plain fermented
+    dairy. A plate of vegetables + canned tuna + egg belongs here, not at 70.
+  - **3-mid → ceiling ~75.** Processed staple: the process concentrated fat/salt or partly refined
+    the grain. Hard cheese, wholegrain shop bread, smoked fish, canteen/institutional cooking, a
+    home dish with a stock cube.
+  - **3-low → ceiling ~60.** Refined group-3, or group-3 crowding out fresh food. White bread,
+    refined pastry base, a plate that is bread + cheese with no vegetables.
+
+  When several group-3 items are present, take the band of the **worst** one. The sub-band sets only
+  the ceiling — a 3-mid meal with poor nutrition (refined pasta, no fibre, heavy fat) still lands in
+  the 40s.
+
 - **Then adjust within that band** for nutrient quality:
   - **Up**: vegetables, fruit, legumes, whole grains, lean protein, fish, fiber, healthy fats (olive
     oil, nuts), no added sugar.
