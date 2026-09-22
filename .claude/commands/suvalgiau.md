@@ -129,6 +129,19 @@ user clearly cooked from scratch:
     emulsified sauce, hydrogenated-oil marinade, packaged mix, glaze, syrup).
   The "err negative" lean is for genuine ambiguity — not a reason to up-grade clean home cooking.
 
+**Sauces on home-cooked dishes: the note is the authority.** The user lists every sauce he adds to his
+own cooking. So for a **home-cooked** dish, if a sauce is not in the note, it is not in the dish —
+grade it as the clean dish, and do **not** infer a condiment from a red streak, a sheen or a smear in
+the photo. This is a deliberate exception to the "err negative" lean, because the lean exists for
+genuine ambiguity and here the note removes it. When the note **does** name an industrial condiment
+(sriracha, ketchup, soy-based glaze, mayo, a bottled dressing), apply it: Nuodai is the authority on
+the sauce itself — for example **all 30 sriracha products in Nuodai are NOVA 4**, none clean — and a
+small squeeze on an otherwise clean dish lands the meal at **NOVA 3, 3-mid band** (the same treatment
+as a stock cube), not at NOVA 4. NOVA 4 is for a meal that actually *centers* on the sauce.
+
+This rule covers the user's own cooking only. Restaurant, café and canteen plates are still judged
+from the photo and from what the venue plainly serves — there the note is not a complete inventory.
+
 ---
 
 ## Step 3.5 — When a shop or café is named, look the product up online
