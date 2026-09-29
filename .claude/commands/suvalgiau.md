@@ -76,26 +76,36 @@ usually angles of the same meal — don't double-count portions.
 NOVA is the ultra-processing classification: `1-2` (whole / minimally processed, good), `3`
 (processed), `4A`–`4D` (ultra-processed, worsening severity). The Valgau API (formerly Nuodai) is
 public, read-only, no key. It covers ~36,000 Lithuanian grocery products from Barbora, Rimi, IKI (via
-lastmile.lt) and several sports-nutrition shops. The subdomain `https://valgau.perkubulve.lt/api.php` is
-equivalent, and the old `/nuodai/` address still redirects (301), but use the base URL below:
+lastmile.lt) and several sports-nutrition shops. `https://perkubulve.lt/valgau/api.php` is equivalent,
+and the old `/nuodai/` address still redirects (301), but use the base URL below:
 
 ```bash
 # find a product id
-curl -s "https://perkubulve.lt/valgau/api.php?action=list&q=<lithuanian+product+name>"
+curl -s "https://valgau.perkubulve.lt/api.php?action=list&q=<lithuanian+product+name>"
 # full detail: NOVA verdict + every ingredient + the NOVA-4 drivers
-curl -s "https://perkubulve.lt/valgau/api.php?action=product&id=<id>"
+curl -s "https://valgau.perkubulve.lt/api.php?action=product&id=<id>"
 ```
 
 Use `rating.code` for the NOVA code. Lithuanian letters are folded in search (`ž→z`), every query
 word must appear in the name.
 
-**One known limit of Valgau.** It grades by scanning the ingredient list for ultra-processing
-markers, so a food whose ingredients are all group 1–2 comes back `1-2` even when the *process* puts
-it in group 3. Canned fish in brine (tuna, water, salt), canned legumes, olives and plain cheese all
-return `1-2` there while the NOVA framework calls them group 3 — preserving a whole food with salt
-and heat is the definition of group 3. For these, trust the process, not the ingredient scan: grade
-the item **3** and use the **3-high** scoring sub-band (Step 4), which is where it belongs. Valgau is
-still the authority on additives and on anything genuinely ultra-processed.
+**NOVA 3 by production — read the tag, not just `rating.code`.** Valgau's `rating` comes from the
+ingredient list, so a food whose ingredients are all group 1–2 still rates `1-2` even when the
+*process* puts it in group 3: canned fish in brine, canned legumes, olives, plain cheese, bread,
+smoked or cured fish and meat, pickles, anything with added salt, sugar, oil or vinegar. Valgau now
+flags these explicitly. The product carries `nova3_by_production: true` with `nova3_reasons` (e.g.
+`["canned"]`, `["cheese"]`, `["added"]`), list items carry `nova3_by_production`, and the product's
+`notes[]` holds an entry with `kind: "nova3"` explaining why. Treat **either** signal as the tag —
+the boolean or a `nova3` note — because the summary field can lag behind the notes.
+
+When the tag is on, grade the item **NOVA 3**, not `1-2`, and pick the sub-band (Step 4) by the
+reason: `canned`, `pickled`, `salted` and plain fermented dairy → **3-high**; `cheese`, `bread`,
+`smoked`, `cured` and `added` → **3-mid**, unless the bread is refined white (→ 3-low). The tag
+never lowers a grade: a NOVA 4 rating stays NOVA 4. Without the tag, and for a whole or home-cooked
+food, fall back on the process yourself — the tag appears only on explicit evidence, so its absence
+does not prove a food is group 1–2. Valgau is still the authority on additives and on anything
+genuinely ultra-processed. `rating.code: "?"` means unrated (no readable ingredient list) — never
+read that as clean.
 
 **How to assign NOVA to a diary entry (which is a *meal*, not a single barcode):**
 
