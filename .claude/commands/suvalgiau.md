@@ -89,28 +89,37 @@ curl -s "https://valgau.perkubulve.lt/api.php?action=product&id=<id>"
 Use `rating.code` for the NOVA code. Lithuanian letters are folded in search (`ž→z`), every query
 word must appear in the name.
 
-**NOVA 3 by production — read the tag, not just `rating.code`.** Valgau's `rating` comes from the
+**Production tags — read them, not just `rating.code`.** Valgau's `rating` comes from the
 ingredient list, so a food whose ingredients are all group 1–2 still rates `1-2` even when the
 *process* puts it in group 3: canned fish in brine, canned legumes, olives, plain cheese, bread,
 smoked or cured fish and meat, pickles, anything with added salt, sugar, oil or vinegar. Valgau now
 flags these explicitly. The product carries `nova3_by_production: true` with `nova3_reasons` (e.g.
 `["canned"]`, `["cheese"]`, `["added"]`), list items carry `nova3_by_production`, and the product's
 `notes[]` holds an entry with `kind: "nova3"` explaining why. Treat **either** signal as the tag —
-the boolean or a `nova3` note — because the summary field can lag behind the notes.
+the boolean or a `nova3` note.
 
 When the tag is on, grade the item **NOVA 3**, not `1-2`, and pick the sub-band (Step 4) by the
 reason: `canned`, `pickled`, `salted` and plain fermented dairy → **3-high**; `cheese`, `bread`,
-`smoked`, `cured` and `added` → **3-mid**, unless the bread is refined white (→ 3-low). The tag
-never lowers a grade: a NOVA 4 rating stays NOVA 4. Without the tag, and for a whole or home-cooked
-food, fall back on the process yourself — the tag appears only on explicit evidence, so its absence
-does not prove a food is group 1–2. Valgau is still the authority on additives and on anything
+`smoked`, `cured` and `added` → **3-mid**, unless the bread is refined white (→ 3-low); `alcohol`
+(beer, cider, wine) → **3-low**, since the calories are empty. The tag never lowers a grade: a NOVA 4
+rating stays NOVA 4.
+
+**NOVA 4 by production — distilled spirits.** The same way, `nova4_by_production: true` with
+`nova4_reasons: ["spirits"]` (or a note with `kind: "nova4"`) marks a distilled drink — vodka, whisky,
+brandy, rum, gin, liqueur — which the NOVA definitions place in group 4 even though its ingredients
+rate `1-2`. When that tag is on, grade the drink **4B** (score in the teens); a liqueur or a spirit
+drunk with a sugary mixer or soft drink is **4C**. Never grade a tagged spirit `1-2` or `3`. A spirit
+never carries the NOVA 3 tag, and the NOVA 4 tag is not added when the rating is already NOVA 4.
+
+Without a tag, and for a whole or home-cooked food, fall back on the process yourself — the tags
+appear only on explicit evidence, so their absence does not prove a food is group 1–2. Valgau is still the authority on additives and on anything
 genuinely ultra-processed. `rating.code: "?"` means unrated (no readable ingredient list) — never
 read that as clean.
 
 **How to assign NOVA to a diary entry (which is a *meal*, not a single barcode):**
 
 - **Packaged / branded product** (a named drink, snack, bar, sauce, ready meal) → look it up and use
-  its `rating.code` directly.
+  its `rating.code`, raised to NOVA 3 or NOVA 4 when a production tag is on (above).
 - **Cooked / restaurant meal** → judge by what dominates and how processed the venue is. The user
   signals venue in the note:
   - "namuose" / home-cooked from whole ingredients → usually `1-2` or `3`.
