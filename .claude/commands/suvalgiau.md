@@ -71,28 +71,30 @@ usually angles of the same meal — don't double-count portions.
 
 ---
 
-## Step 3 — Determine NOVA via the Nuodai API
+## Step 3 — Determine NOVA via the Valgau API
 
 NOVA is the ultra-processing classification: `1-2` (whole / minimally processed, good), `3`
-(processed), `4A`–`4D` (ultra-processed, worsening severity). The Nuodai API is public, read-only,
-no key:
+(processed), `4A`–`4D` (ultra-processed, worsening severity). The Valgau API (formerly Nuodai) is
+public, read-only, no key. It covers ~36,000 Lithuanian grocery products from Barbora, Rimi, IKI (via
+lastmile.lt) and several sports-nutrition shops. The subdomain `https://valgau.perkubulve.lt/api.php` is
+equivalent, and the old `/nuodai/` address still redirects (301), but use the base URL below:
 
 ```bash
 # find a product id
-curl -s "https://perkubulve.lt/nuodai/api.php?action=list&q=<lithuanian+product+name>"
+curl -s "https://perkubulve.lt/valgau/api.php?action=list&q=<lithuanian+product+name>"
 # full detail: NOVA verdict + every ingredient + the NOVA-4 drivers
-curl -s "https://perkubulve.lt/nuodai/api.php?action=product&id=<id>"
+curl -s "https://perkubulve.lt/valgau/api.php?action=product&id=<id>"
 ```
 
 Use `rating.code` for the NOVA code. Lithuanian letters are folded in search (`ž→z`), every query
 word must appear in the name.
 
-**One known limit of Nuodai.** It grades by scanning the ingredient list for ultra-processing
+**One known limit of Valgau.** It grades by scanning the ingredient list for ultra-processing
 markers, so a food whose ingredients are all group 1–2 comes back `1-2` even when the *process* puts
 it in group 3. Canned fish in brine (tuna, water, salt), canned legumes, olives and plain cheese all
 return `1-2` there while the NOVA framework calls them group 3 — preserving a whole food with salt
 and heat is the definition of group 3. For these, trust the process, not the ingredient scan: grade
-the item **3** and use the **3-high** scoring sub-band (Step 4), which is where it belongs. Nuodai is
+the item **3** and use the **3-high** scoring sub-band (Step 4), which is where it belongs. Valgau is
 still the authority on additives and on anything genuinely ultra-processed.
 
 **How to assign NOVA to a diary entry (which is a *meal*, not a single barcode):**
@@ -107,7 +109,7 @@ still the authority on additives and on anything genuinely ultra-processed.
   - "pigi kavinė" (cheap café), fast food, fried, heavy sauces → `4B`–`4D`.
   - **All emulsified/industrial sauces (mayonnaise, ketchup, dressings), processed meats (sausages,
     bacon, deli), sweetened/soft drinks, packaged sweets and snacks → NOVA 4.** If a meal centers on
-    these, the meal is NOVA 4. Look up the specific sauce/product in Nuodai to pin the sub-grade
+    these, the meal is NOVA 4. Look up the specific sauce/product in Valgau to pin the sub-grade
     (4A–4D) when you can.
 - Report the single NOVA code that best represents the meal as eaten. When a meal mixes a whole-food
   base with a NOVA-4 component, grade up toward the processed component (the user wants the more
@@ -134,8 +136,8 @@ own cooking. So for a **home-cooked** dish, if a sauce is not in the note, it is
 grade it as the clean dish, and do **not** infer a condiment from a red streak, a sheen or a smear in
 the photo. This is a deliberate exception to the "err negative" lean, because the lean exists for
 genuine ambiguity and here the note removes it. When the note **does** name an industrial condiment
-(sriracha, ketchup, soy-based glaze, mayo, a bottled dressing), apply it: Nuodai is the authority on
-the sauce itself — for example **all 30 sriracha products in Nuodai are NOVA 4**, none clean — and a
+(sriracha, ketchup, soy-based glaze, mayo, a bottled dressing), apply it: Valgau is the authority on
+the sauce itself — for example **all 30 sriracha products in Valgau are NOVA 4**, none clean — and a
 small squeeze on an otherwise clean dish lands the meal at **NOVA 3, 3-mid band** (the same treatment
 as a stock cube), not at NOVA 4. NOVA 4 is for a meal that actually *centers* on the sauce.
 
@@ -152,7 +154,7 @@ to get accurate calories / ingredients / portion, then base your numbers on that
 
 Lookup order (stop as soon as you have solid data):
 
-1. **Nuodai API** (Step 3) — covers Barbora + Rimi + lastmile groceries; try it first for packaged items.
+1. **Valgau API** (Step 3) — covers Barbora, Rimi, IKI (lastmile) and sports-nutrition shops; try it first for packaged items.
 2. **The named retailer's own site** — these publish nutrition + ingredients per product:
    - **Maxima** → `maxima.lt` (its confectionery/bakery products list ingredients and kcal).
    - **Rimi** → `rimi.lt`. **Lidl** → `lidl.lt`. **Iki** → `iki.lt`. **Barbora** → `barbora.lt`.
@@ -166,7 +168,7 @@ From whatever you find:
 - Use the page's **per-100 g kcal** × the portion weight for `calories` (still err high when the
   portion is uncertain).
 - Use the **ingredient list** to set `NOVA` — emulsifiers, glaze, margarine, additives, syrups →
-  NOVA 4; cross-check the additive in the Nuodai product endpoint when useful.
+  NOVA 4; cross-check the additive in the Valgau product endpoint when useful.
 - Note the source in your chat summary (e.g. "kcal iš maxima.lt") so the user can sanity-check.
 
 If nothing usable is online, fall back to a photo/portion estimate and **say so** in the summary.
