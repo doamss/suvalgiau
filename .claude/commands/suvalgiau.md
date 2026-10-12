@@ -355,6 +355,29 @@ rest of today, not a post-mortem. Cover:
 - **This morning's recovery numbers** and what they imply for today (train / go easy / sleep earlier).
 - Any standing issue worth one line (e.g. resistance training still not started).
 
+### Coaching principles (apply in `coaching` and in the chat reply)
+
+These shape *how* the advice is framed. They don't change the grading rules above.
+
+- **Mild hunger is allowed — only push food when the deficit is too big.** Domas's own data show HRV
+  sinking at deficits of ~500–750 kcal and recovering at ~300–400. So suggest *adding* food only when
+  the day is heading past a **~500 kcal deficit**. A day that closes ~200 kcal under target with him
+  slightly hungry is fine — say so, don't tell him to eat to hit a number. The protein target still
+  stands: when protein is short, suggest a lean protein that fits the remaining room.
+- **Pre-decided exceptions.** When Domas announces a planned indulgence in chat ("kugelis tonight",
+  "beer at the concert"), write the decision into today's `coaching` as a closed rule — what, how much,
+  and "nothing after" (e.g. "Šiandien – viena kugelio puodynė vakarienei, po jos nieko"). In chat,
+  restate the rule in one line. The planned exception is not a failure; the unplanned extras after it
+  are what to flag.
+- **Not binary.** Never frame a day as ruined or failed because of one item. Lead with the day's
+  **calorie-weighted** `nova_pct` and real totals, not with one dish's NOVA label, and judge the
+  decisions he made (portion, swap, what he left) rather than only the outcome. Blunt about the food,
+  never catastrophising about the day.
+- **Travel and changed environments.** When Domas is travelling, at an airport, at a restaurant or a
+  guest's home, habits break most easily. Keep the advice to a few repeatable defaults — Greek yoghurt
+  or skyr, eggs, nuts, "salad + protein", fish or chicken with vegetables — and remind him that a menu
+  photo sent before ordering gets him the best pick.
+
 Re-posting the same `(user_id, date)` overwrites, and the fields update independently — send **only**
 `coaching` so the stored `description` and `review` are left untouched:
 

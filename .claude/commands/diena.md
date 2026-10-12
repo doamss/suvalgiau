@@ -18,6 +18,7 @@ What this command owns:
 4. A **re-verify of the day before yesterday**, because Garmin settles late.
 5. The **weight and body-composition** read from Renpho, for **each user who has data**.
 6. The **`most_used`** quick-pick chips.
+7. The **weekly calibration** of Domas's real maintenance against the scale (Mondays, Step 4.5).
 
 What it does **not** own: analysing pending entries, and **today's** `coaching`. Both belong to
 `/suvalgiau`.
@@ -198,6 +199,38 @@ Rules for reading it honestly:
 
 ---
 
+## Step 4.5 — Weekly calibration (Domas, Mondays)
+
+On the **first `/diena` run of each Monday**, or on the first run after it if Monday had none, check
+Domas's real maintenance against the scale instead of trusting single days. The day estimate comes
+from Garmin; the calibration says whether that estimate, and the logging, are right.
+
+1. Fetch the **last 14 strictly-previous days**: `stats.total_kcal` from `day.php` and
+   `total_kcal_burned` from `garmin.php`. Skip days that look unlogged, i.e. far below his usual
+   intake with only 1–2 entries.
+2. From `renpho.php`, take **morning** weigh-ins only (`measured_at` before ~11:00) in a 28-day
+   window and fit a linear trend. That gives kg/week.
+3. Compute:
+   - **Logged deficit** = mean Garmin burn − mean intake (14 days).
+   - **Scale deficit** = −(kg/week) × 7700 / 7.
+   - **Empirical maintenance** = mean intake + scale deficit.
+   - **Pace** = kg/week as a % of current weight. The target band is ~0.35–0.5 %/week, roughly 10 %
+     of body weight over six months.
+4. Read it:
+   - Logged and scale deficits within ~150 kcal/day: the log and Garmin are honest. Keep the targets.
+   - Scale deficit much **smaller** than logged: intake is under-logged or Garmin overstates the
+     burn. Tighten portion weighing, and treat Garmin's burn as ~that much lower.
+   - Scale deficit much **larger**: the logs err high, which is fine. If pace is above ~0.6 %/week
+     *and* HRV is drifting down, suggest raising intake by ~100–150 kcal/day.
+5. Put one Lithuanian paragraph with the numbers into that day's `review` for Domas. Report one line
+   in chat (Step 8). Don't repeat the calibration on other days of the week.
+
+**When Domas reaches his goal weight** (he'll say so), switch to "start low, end high". Raise intake
+in steps of ~100–150 kcal/day each week, toward the empirical maintenance from this calibration,
+instead of jumping straight to it.
+
+---
+
 ## Step 5 — Write the three writeups — dry, strict, Lithuanian
 
 Both are Lithuanian. Tone: **critical and blunt, aimed at weight loss. No comfort, no praise for its
@@ -247,6 +280,18 @@ This is the most useful field of the three, so make it concrete. Cover:
 
 Anchor everything in the day's real figures and the recovery numbers it produced. No comfort, no
 filler, no restating the `description`.
+
+**Framing rules for `coaching`:**
+
+- **Not binary.** A single heavy item never makes the day "failed". Lead with the calorie-weighted
+  `nova_pct` and the real totals, and judge the *decisions* (portion size, swaps, what was left on the
+  plate, what was pre-planned) as well as the outcome.
+- **Planned vs unplanned.** If Domas announced an exception in chat beforehand, the exception itself
+  is not the lesson — the unplanned extras after it are. Say which was which.
+- **Deficit judged against recovery.** For Domas, ~300–400 kcal is the target; a day ~100–200 under
+  it is fine, not "too small" to fix with food. Flag a deficit as too aggressive only past **~500 kcal**,
+  where his HRV has historically dropped. A single day's deficit is noise — the weekly calibration
+  (Step 4.5) is the real read.
 
 ### Sparse days
 
@@ -325,7 +370,11 @@ Then the one thing worth carrying forward from his `coaching` — the lesson, th
 rule the day produced. One or two sentences, the same register you'd use talking to him directly.
 
 Then, if **Domas** had a Renpho measurement, one line on his weight and composition trend — the
-composition split over the window, not the daily number. Ausra's weight goes into her `review` on the
+composition split over the window, not the daily number.
+
+On a calibration run (Step 4.5), add one line: the 14-day average intake, Garmin burn, logged versus
+scale deficit, empirical maintenance and pace, plus whether the targets stand or shift. Example:
+`Week check: intake 2125, burn 2533 → logged deficit 410 vs scale 460 (−0.42 kg/wk, 0.53 %/wk); real maintenance ~2580 — targets stand.` Ausra's weight goes into her `review` on the
 site like everything else of hers, and is **never** mentioned in chat.
 
 Do **not** report Ausra's summaries, skipped days, not-ready days, today, the `most_used` refresh, an
