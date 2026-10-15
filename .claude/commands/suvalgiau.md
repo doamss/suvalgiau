@@ -121,9 +121,14 @@ read that as clean.
 - **Packaged / branded product** (a named drink, snack, bar, sauce, ready meal) → look it up and use
   its `rating.code`, raised to NOVA 3 or NOVA 4 when a production tag is on (above). **Every
   specific product named in the note or readable on a label or wrapper in the photo gets a Valgau
-  lookup before it is graded** — never grade a branded item from general NOVA knowledge (e.g. "it
-  contains protein powder, so NOVA 4"). If Valgau has it, its verdict stands; only fall back to your
-  own judgement when the product is genuinely not in Valgau, and say so in the chat summary.
+  lookup before it is graded** — never skip the lookup and grade a branded item from memory alone.
+  Valgau is the starting point, not an oracle: read its ingredient list yourself and check it
+  against the NOVA markers (protein isolates/concentrates, modified starch, emulsifiers, sweeteners,
+  flavourings, hydrolysed or industrial-only substances). If the ingredients clearly contradict
+  Valgau's `rating.code` — a marker it missed, or a flag that isn't really there — grade by the
+  ingredients, and say in the chat summary which product, what Valgau says, what you graded and
+  why, so the user can get Valgau reviewed. When the product is not in Valgau at all, grade from
+  the label and say so.
 - **Cooked / restaurant meal** → judge by what dominates and how processed the venue is. The user
   signals venue in the note:
   - "namuose" / home-cooked from whole ingredients → usually `1-2` or `3`.
