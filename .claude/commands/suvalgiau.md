@@ -119,7 +119,11 @@ read that as clean.
 **How to assign NOVA to a diary entry (which is a *meal*, not a single barcode):**
 
 - **Packaged / branded product** (a named drink, snack, bar, sauce, ready meal) → look it up and use
-  its `rating.code`, raised to NOVA 3 or NOVA 4 when a production tag is on (above).
+  its `rating.code`, raised to NOVA 3 or NOVA 4 when a production tag is on (above). **Every
+  specific product named in the note or readable on a label or wrapper in the photo gets a Valgau
+  lookup before it is graded** — never grade a branded item from general NOVA knowledge (e.g. "it
+  contains protein powder, so NOVA 4"). If Valgau has it, its verdict stands; only fall back to your
+  own judgement when the product is genuinely not in Valgau, and say so in the chat summary.
 - **Cooked / restaurant meal** → judge by what dominates and how processed the venue is. The user
   signals venue in the note:
   - "namuose" / home-cooked from whole ingredients → usually `1-2` or `3`.
