@@ -407,6 +407,8 @@ Write it for every user with entries today; say nothing in chat about anyone but
 - **Domas's product defaults.** When his note names a product without the variant, assume:
   Žemaitijos varškė = **liesa 0,5 %** (96 kcal, 20 g protein per 100 g). An explicit variant in
   the note always wins.
+- **Domas does not eat tomatoes.** Never suggest tomatoes or tomato-based dishes or sauces to him
+  (in `coaching` or chat); offer non-tomato alternatives instead.
 - **Terminology in the chat reply.** `varškė` is **curd** in English, not "quark" — curd is the drier,
   granular Lithuanian product (Žemaitijos, Dvaro, Pilos, Amfora). Reserve "quark" for products actually
   sold as quark/kvarg (e.g. Lindahls). Same for `grietinė` = sour cream, `varškės sūris` = curd cheese.
