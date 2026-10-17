@@ -6,7 +6,7 @@ Source: Garmin activity 24755622158, per-second data (14,879 samples), laps, HR/
 
 | | |
 |---|---|
-| Distance | **32.05 km**, +289 m / −288 m |
+| Distance | **32.05 km**, +289 m / −288 m by Garmin (likely ~355 m real, see §5) |
 | Elapsed | **4:07:58** (moving 3:56:21) |
 | Stopped | **11.6 min** total, almost all at the three aid stations |
 | Avg pace | 7:44 /km elapsed, **7:23 /km moving** |
@@ -35,7 +35,7 @@ Source: Garmin activity 24755622158, per-second data (14,879 samples), laps, HR/
 | 8 | 7:25 moving (9:39 elapsed) | 160 | 275 | water point, 2 min stop |
 | 9–13 | 6:53–7:17 | 166–174 | 289–299 | fastest sustained block |
 | 14 | 7:17 moving (11:32 elapsed) | 164 | 313 | food point, ~4 min stop |
-| 15–20 | 7:21–8:11 | 164–173 | 253–282 | km 18 slowest moving (8:11) — soft sand km 18–19.5 |
+| 15–20 | 7:21–8:11 | 164–173 | 253–282 | km 18 slowest moving (8:11) — soft sand at 17.3–18.0 km |
 | 21–24 | 7:15–7:40 | 170–175 | 259–313 | dune hills; km 21: +36 m, HR 185 max |
 | 25 | 7:36 moving (12:20 elapsed) | 165 | 276 | food point, ~5 min stop |
 | 26–31 | 7:21–8:16 | 168–175 | 240–273 | rolling climbs (km 27 +15 m, km 30 +22/−23 m, km 31 +16 m) + fatigue, shortest strides |
@@ -65,11 +65,19 @@ Source: Garmin activity 24755622158, per-second data (14,879 samples), laps, HR/
 - A cadence of **~157 spm is on the low side**. Most runners land at 165–175 at these speeds. Shorter, quicker steps (~165) would help on sand and dunes and reduce leg fatigue late in the race. Practise with a metronome on easy runs.
 - Stride length falling with stable ground contact is classic late-race muscle fatigue. It's what strength training (squats, lunges, calf raises, step-ups) improves most, which is one more reason to finally start the TRX sessions.
 
-## 5. Terrain
+## 5. Terrain (checked against the per-second data)
 
-- **Sand (km 18–19.5)**: the one genuinely soft section. km 18 was the slowest running km (8:11) with power dropping to 253 W and stride shrinking to 78 cm — that's the sand, not just fatigue. Holding HR ~173 there without blowing up was good control.
-- **Dune hills (km ~18 → finish)**: from here the challenge was continuous up/down, not sand — km 21 +36 m (HR peak 185), km 25 +17/−29 m, km 27 +15 m, km 30 +22/−23 m, km 31 +16 m. Moving pace 7:15–7:40 through km 21–26 on that profile is well paced; the caffeine gels at km 20 and 27 sat right on the hilliest stretch.
-- **km 27–31 (7:52–8:16)**: the slowdown is a **mix of rolling climbs and fatigue**, not pure fade — so the second-half decoupling (§2) is partly terrain. Still, power fell ~35 W versus km 8–13 on comparable gradients, so the fast start did cost something. km 32 (7:20, flatter) shows you still had reserves.
+Note: lap "km N" in §2 is the kilometre ending at N (lap 18 = 17.0–18.0 km).
+
+- **Sand signature: km 17.3–18.0.** Pace dropped to 8:09–8:57, stride shrank to 72–77 cm, ground contact peaked at 317 ms (vs ~295 elsewhere) and power fell to ~245 W — exactly what soft sand looks like. **km 18.0–20.5** shows no sand signature (7:04–7:40, stride 82–87 cm, GCT ~291 ms) and sits at sea level — firm beach or packed ground per the watch.
+- **Dune climbs start at ~km 20.5**, not earlier: altitude jumps from ~−2 to ~25 m between 20.5 and 20.75 km (pace 8:00, power 356 W, HR 183 — the peak of the race). From there the profile stays at 20–40 m with continuous ups and downs to ~km 30.
+- **km 27–31 (7:52–8:16)** = rolling climbs + fatigue; part of the second-half decoupling (§2) is terrain. Power was still ~35 W lower than km 8–13 on comparable gradients, so the fast start cost something. km 32 (7:20) shows reserves.
+
+### Elevation gain: Garmin 289 m vs organiser ~355 m
+
+- The watch's raw barometric trace summed point-to-point gives 634 m (noise). Garmin's 289 m matches a ~2 m hysteresis filter applied to it; with a 1 m filter the same trace gives **389 m**.
+- The watch also reads a minimum of **−12.8 m** on a sea-level beach — barometric drift of ~5–13 m over 4 h (pressure change), and `elevationCorrected` is off. Absolute heights are unreliable; relative changes are OK.
+- Rolling dunes are many 1–3 m bumps, which a 2 m filter swallows. **The organiser's ~355 m is the more credible figure; Garmin under-counted by ~20 %.** Turning on *Elevation Corrections* for the activity in Garmin Connect (DEM-based) should bring it closer.
 
 ## 6. What to keep, what to change
 
