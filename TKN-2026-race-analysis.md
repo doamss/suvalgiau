@@ -36,9 +36,9 @@ Source: Garmin activity 24755622158, per-second data (14,879 samples), laps, HR/
 | 9–13 | 6:53–7:17 | 166–174 | 289–299 | fastest sustained block |
 | 14 | 7:17 moving (11:32 elapsed) | 164 | 313 | food point, ~4 min stop |
 | 15–20 | 7:21–8:11 | 164–173 | 253–282 | km 18 slowest moving (8:11) |
-| 21–24 | 7:15–7:40 | 170–175 | 259–313 | dunes start; km 21: +36 m, HR 185 max |
+| 21–24 | 7:15–7:40 | 170–175 | 259–313 | dune hills; km 21: +36 m, HR 185 max |
 | 25 | 7:36 moving (12:20 elapsed) | 165 | 276 | food point, ~5 min stop |
-| 26–31 | 7:21–8:16 | 168–175 | 240–273 | gradual fade, shortest strides |
+| 26–31 | 7:21–8:16 | 168–175 | 240–273 | rolling climbs (km 27 +15 m, km 30 +22/−23 m, km 31 +16 m) + fatigue, shortest strides |
 | 32 | 7:20 | 171 | 261 | strong finish |
 
 - The plan was **7:45–8:00 /km**. You ran the first 13 km at **~7:00 /km**, roughly 45–60 s/km faster than planned.
@@ -67,9 +67,9 @@ Source: Garmin activity 24755622158, per-second data (14,879 samples), laps, HR/
 
 ## 5. Terrain
 
-- **Dunes (km 20–27):** moving pace held at 7:15–7:40 with HR 170–175 despite the sand and climbs. That's well paced, and the caffeine gel at km 20 lined up with the hardest stretch.
-- **km 18 (8:11)** was the slowest running km, likely soft sand or beach, and the first sign of fatigue from the fast start.
-- **Final 5 km (km 27–31)** were flat but slow (7:52–8:16) as power dropped. km 32 shows you still had reserves.
+- **Sand (km 18–19.5)**: the one genuinely soft section. km 18 was the slowest running km (8:11) with power dropping to 253 W and stride shrinking to 78 cm — that's the sand, not just fatigue. Holding HR ~173 there without blowing up was good control.
+- **Dune hills (km ~18 → finish)**: from here the challenge was continuous up/down, not sand — km 21 +36 m (HR peak 185), km 25 +17/−29 m, km 27 +15 m, km 30 +22/−23 m, km 31 +16 m. Moving pace 7:15–7:40 through km 21–26 on that profile is well paced; the caffeine gels at km 20 and 27 sat right on the hilliest stretch.
+- **km 27–31 (7:52–8:16)**: the slowdown is a **mix of rolling climbs and fatigue**, not pure fade — so the second-half decoupling (§2) is partly terrain. Still, power fell ~35 W versus km 8–13 on comparable gradients, so the fast start did cost something. km 32 (7:20, flatter) shows you still had reserves.
 
 ## 6. What to keep, what to change
 
