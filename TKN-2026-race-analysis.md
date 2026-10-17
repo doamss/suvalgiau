@@ -35,7 +35,7 @@ Source: Garmin activity 24755622158, per-second data (14,879 samples), laps, HR/
 | 8 | 7:25 moving (9:39 elapsed) | 160 | 275 | water point, 2 min stop |
 | 9–13 | 6:53–7:17 | 166–174 | 289–299 | fastest sustained block |
 | 14 | 7:17 moving (11:32 elapsed) | 164 | 313 | food point, ~4 min stop |
-| 15–20 | 7:21–8:11 | 164–173 | 253–282 | km 18 slowest moving (8:11) |
+| 15–20 | 7:21–8:11 | 164–173 | 253–282 | km 18 slowest moving (8:11) — soft sand km 18–19.5 |
 | 21–24 | 7:15–7:40 | 170–175 | 259–313 | dune hills; km 21: +36 m, HR 185 max |
 | 25 | 7:36 moving (12:20 elapsed) | 165 | 276 | food point, ~5 min stop |
 | 26–31 | 7:21–8:16 | 168–175 | 240–273 | rolling climbs (km 27 +15 m, km 30 +22/−23 m, km 31 +16 m) + fatigue, shortest strides |
