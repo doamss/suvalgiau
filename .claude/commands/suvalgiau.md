@@ -126,9 +126,31 @@ read that as clean.
   against the NOVA markers (protein isolates/concentrates, modified starch, emulsifiers, sweeteners,
   flavourings, hydrolysed or industrial-only substances). If the ingredients clearly contradict
   Valgau's `rating.code` — a marker it missed, or a flag that isn't really there — grade by the
-  ingredients, and say in the chat summary which product, what Valgau says, what you graded and
-  why, so the user can get Valgau reviewed. When the product is not in Valgau at all, grade from
-  the label and say so.
+  ingredients, **report it to Valgau** (below), and say in the chat summary which product, what
+  Valgau says, what you graded and why, plus the `report_id`. When the product is not in Valgau at
+  all, grade from the label and say so.
+
+**Reporting Valgau errors.** Whenever you find a Valgau mistake or inconsistency — a rating that
+contradicts its own ingredient list, a missed or false NOVA marker, the same product listed twice
+with different ratings, wrong nutrition or product data — file a report directly. The token lives in
+`$VALGAU_AGENT_TOKEN`; never write it to a tracked file. If the variable is empty, skip the report
+and mention the error in chat as before.
+
+```bash
+curl -s -X POST "https://perkubulve.lt/valgau/agent_api.php" \
+  -H "X-Valgau-Agent-Token: $VALGAU_AGENT_TOKEN" -H "Content-Type: application/json" \
+  --data-binary @report.json
+# report.json: {"action":"report","id":<product id from api.php>,
+#   "kind":"ingredients|rating|product|alternatives|other",
+#   "message":"what is wrong + evidence (label text, source)",
+#   "expect_name":"<product name as you saw it>","agent":"dietologas"}
+```
+
+The answer is `{"ok":true,"report_id":N}`. A 409 `"id_changed"` means product ids moved after an
+import: look the product up again by name and resend with the new id. Check a report later with
+`GET agent_api.php?action=status&id=N`. One report per distinct problem; don't re-file one already
+reported. Write the `message` in Lithuanian or English, factual, with the evidence (Valgau's own
+ingredient text, the label, the retailer page).
 - **Cooked / restaurant meal** → judge by what dominates and how processed the venue is. The user
   signals venue in the note:
   - "namuose" / home-cooked from whole ingredients → usually `1-2` or `3`.
