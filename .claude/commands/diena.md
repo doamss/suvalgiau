@@ -270,6 +270,9 @@ This is the most useful field of the three, so make it concrete. Cover:
   ne gruzdintos bulvės"). Mechanism, not praise.
 - **What cost the day points**, quantified where possible: "vienas wakame garnyras nuleido 750 kcal
   įrašą nuo ~90 iki 68 balų ir pakėlė dienos NOVA 4 dalį iki 36 %".
+  Only name something here when it genuinely cost the day: NOVA 4, a score below ~65, or a real
+  gap against the targets. On a clean day, the lowest-scoring good entry is not a cost — say the
+  day had no weak entry rather than labelling one, and offer any tweak as optional.
 - **The counterfactual** — the same meal or day done better, with the numbers it would have scored.
   This is what makes the lesson usable next time.
 - **The lesson worth keeping**: a rule, a per-gram rate, a product verdict, a portion size — anything
