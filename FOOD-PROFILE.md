@@ -155,8 +155,15 @@ varškė, 199 g Amfora Greek yoghurt, 800 g beef 15 %, 60 g Rokiškio 12 mėn. h
 2.2 g sugars**; 1/6 ≈ 660 kcal, 49 g protein. NOVA 3 (cheese), ~80. Rescale per 100 g once the pot is weighed.
 **v1 result:** potato slices (2.4 mm) still almost raw after 55 min lid on + 15 min lid off at 190 °C;
 lots of liquid; the custard set in chunks on top instead of soaking through (see the lesson in §3).
-**v3 method (2026-10-23, checked against Serbian 021.rs / novosti.rs and Bulgarian recipes; not yet
-cooked)** — replaces an unchecked parboil "v2" that was never cooked. Raw 2–3 mm potato slices;
+**v4 method — current (2026-10-23, Domas chose parboiling as safer and quicker; not yet cooked):**
+parboil the 2–3 mm slices **4–5 min** in 3 L water + 1 tbsp salt (gratins blanch 3 min, Macedonian
+moussaka 5 min) until a knife meets only slight resistance, drain and steam-dry; filling with 50 ml
+water, cooked until most liquid has gone; layer potato–meat–potato; **lid on, 200 °C, 15 min**, check
+the potatoes are soft (10 min more if not); then the v3 topping + 60 g cheese, **lid off 20–25 min**.
+Same nutrition as v3; cooked ≈ 3.1 kg → per 100 g ≈ 124 kcal, 9.1 g protein; 1/6 ≈ 515 g. Parboil +
+Serbian two-stage bake is an adaptation, not taken from a single source.
+**v3 method (superseded by v4; checked against Serbian 021.rs / novosti.rs and Bulgarian recipes):**
+replaces an unchecked parboil "v2" that was never cooked. Raw 2–3 mm potato slices;
 filling finished with 150 ml water and left juicy; layer potato–meat–potato, **lid on, 200 °C, 40 min**,
 check the potatoes are soft (10–15 min more if not) **before** the topping goes on; topping = 150 ml
 milk + 3 eggs + 200 g Greek yoghurt + 200 g varškė + 15 g flour + ¼ tsp salt + nutmeg, blended smooth,
