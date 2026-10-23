@@ -107,12 +107,19 @@ Total ≈ **3320 kcal, 305 g protein, 388 g carbs, 56 g fat, 23 g fibre**; cooke
 **per 100 g ≈ 123 kcal, 11.3 g protein, 14.4 g carbs, 2.1 g fat, 0.85 g fibre**. NOVA 3, ~78.
 Tweak: swap half the rice for vegetables/edamame for more fibre.
 
-### Mince and potato bake (suggested 2026-10-23, 4 portions)
-800 g lean beef mince (5–10 %), 900 g potatoes sliced 3–4 mm, 2 onions, 250 g mushrooms, 2 garlic,
-10 g oil, custard of 250 ml milk 2,5 % + 2 eggs + 150 g Greek yoghurt, 60 g grated hard cheese,
-paprika/thyme/nutmeg. Layer potato–meat–potato, pour custard, 190 °C covered 40 min + uncovered with
-cheese 15–20 min. **Per portion ≈ 640 kcal, 60 g protein, 45 g carbs, 22 g fat, 7 g fibre**, NOVA 3,
-~70s. Lighter: 700 g potato + zucchini/cabbage layer (~580 kcal).
+### Lithuanian version of musaka od krompira (finalised 2026-10-23, 5–6 portions, Dutch oven)
+Balkan-style potato moussaka (no aubergine, no tomato); replaces the 4-portion "mince and potato bake"
+draft. 800 g beef mince 15 %, 1.1 kg potatoes sliced 3 mm, 300 g onions, 250 g carrots, 300 g
+mushrooms (optional), 15 g garlic, 5 g olive oil, 50 ml water, 2 tsp sweet paprika, 1 tsp thyme,
+2 tsp salt in total; custard of 300 ml milk 2,5 % + 3 eggs + 200 g Greek yoghurt + 200 g liesa
+varškė, **blended smooth**, + nutmeg; 60 g Džiugas on top. Mince browned dry in 2 batches, vegetables
+cooked in the rendered fat, layered potato–meat–potato in the same pot; 190 °C lid on 45 min, then lid
+off with cheese 15–20 min. Whole dish ≈ **3880 kcal, 286 g protein, 287 g carbs, 176 g fat, 40 g
+fibre**; cooked ≈ 3.2 kg (estimate — he weighs the pot) → **per 100 g ≈ 121 kcal, 8.9 g protein,
+9.0 g carbs, 5.5 g fat, 1.3 g fibre**; 1/6 ≈ 645 kcal, 48 g protein. NOVA 3 (cheese only), no UPF.
+Every 2 tbsp of fat spooned off ≈ −225 kcal for the dish. Lighter: spoon off fat, 300 g less potato +
+400 g savoy cabbage layer (~590 kcal per 1/6). His kids are fine with the sour note (they like
+grietinė). Shareable and personal PDFs were made from this version.
 
 *(Add new recipes here with the full ingredient list, total and per-100 g / per-portion nutrition.)*
 
