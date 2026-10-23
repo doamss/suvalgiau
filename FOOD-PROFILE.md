@@ -73,6 +73,10 @@ strength sessions a little.
   parboiling the slices is the other way round it. Thick yoghurt/curd mixtures don't soak down
   through layers — they are a topping, and ~1 tbsp flour stops them splitting into curds and whey.
   (A calcium effect from the dairy is plausible but unconfirmed.)
+- **Heated yoghurt/curd splits** into curds and whey (Domas knew this; the v1 "chunks" and much of the
+  liquid were exactly that). Low-fat versions and long cooking make it worse. Only heat them protected:
+  flour/cornstarch (≥ 1 tsp per cup) and/or egg, room temperature, short time — never a long bake or a
+  boil.
 
 ### Recipe format (stated 2026-10-23, example: his "Ginger-Garlic Chicken & Rice")
 
