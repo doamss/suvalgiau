@@ -55,9 +55,17 @@ strength sessions a little.
 - He usually cooks **one dish for the whole family** (him, Ausra, the kids) → default to
   **5–6 portions**, mild and kid-friendly; adults add chili, extra ginger, lemon/lime or soy at the
   table, so put sharp/spicy extras **on the side**.
-- Main pot: a **round enamelled cast-iron Dutch oven** with lid (red) — use it for browning in
-  batches, stir-fries, stews, braises and oven bakes. He also has ordinary pots, pans and an oven.
-  Pot size not recorded yet.
+- Main pot: **Uno Casa enamelled cast-iron Dutch oven**, red, round, stainless-steel lid knob — use
+  it for browning in batches, stir-fries, stews, braises and oven bakes. He also has ordinary pots,
+  pans and an oven. Size confirmed by Domas from the Amazon listing: **5.7 L (6 qt), sold as
+  "30 cm"**. Working rules:
+  - preheat on **medium for 3–5 min**; MEDIUM-HIGH is the hottest hob setting to write (enamel
+    doesn't like empty high heat, and cast iron holds heat anyway);
+  - brown meat in batches of **~400–500 g** so it browns instead of steaming;
+  - keep stews/braises to **~4 L** total so they don't boil over;
+  - oven: take the silicone handle covers off; the oven-temperature limit isn't verified, so keep
+    recipes at **≤ 230 °C**;
+  - no cold water into a hot empty pot; wooden/silicone utensils.
 
 ### Recipe format (stated 2026-10-23, example: his "Ginger-Garlic Chicken & Rice")
 
