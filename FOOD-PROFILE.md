@@ -80,8 +80,18 @@ steps:
    **OPTIONAL —**.
 5. Times in every step, plus practical cues and bold warnings (brown meat in 2–3 batches without
    constant stirring; keep rice slightly firm; add 30–50 ml water if it sticks; taste before salting).
-6. Nutrition **after** the recipe: whole-pot totals, per 100 g cooked and per portion, and a reminder
-   to weigh the finished pot.
+6. Nutrition **after** the recipe: whole-pot totals, per 100 g cooked and per portion. Say which
+   ingredient versions it was calculated with and how other choices shift it per portion.
+7. **No prescribed fat levels or grades** (stated 2026-10-23) — list "beef mince", "milk", "Greek
+   yoghurt", "quark/varškė" plainly, not "15 % mince" or "liesa varškė". Where the choice matters, the
+   step says what to do for each (e.g. "lean mince, 10 % or less: add 5 g olive oil; fattier: no oil,
+   spoon off excess fat"), followed by a short note on what the fattier vs leaner version brings
+   (texture, taste, calories) and whether anything else has to be added or changed. Applies to every
+   ingredient with grades and to all future recipes.
+8. **Shareable by default** (stated 2026-10-23) — recipes must work for anyone. Everything specific to
+   Domas (weighing his pot for suvalgiau, the silicone handle covers, his portion, what he usually
+   buys) goes into a **step 0 "For Domas only"** so it can be deleted before sharing. For a PDF, make
+   two copies: personal (with step 0) and shareable (without).
 
 ## 4. Staples (his regular, known-good meals)
 
