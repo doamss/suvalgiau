@@ -66,6 +66,11 @@ strength sessions a little.
   - oven: take the silicone handle covers off; the oven-temperature limit isn't verified, so keep
     recipes at **≤ 230 °C**;
   - no cold water into a hot empty pot; wooden/silicone utensils.
+- **Lesson (2026-10-23 musaka):** raw potato slices don't soften in an acidic, calcium-rich dairy
+  custard (yoghurt, curd, milk), and even less in a heavy lidded pot that heats slowly — they stayed
+  almost raw after 70 min. In layered potato bakes, **parboil the slices 3–4 min first**. Thick
+  yoghurt/curd mixtures don't soak down through layers, so use them as a **topping spread on top**,
+  with ~15 g flour so they don't split into curds and whey.
 
 ### Recipe format (stated 2026-10-23, example: his "Ginger-Garlic Chicken & Rice")
 
@@ -117,9 +122,9 @@ Total ≈ **3320 kcal, 305 g protein, 388 g carbs, 56 g fat, 23 g fibre**; cooke
 **per 100 g ≈ 123 kcal, 11.3 g protein, 14.4 g carbs, 2.1 g fat, 0.85 g fibre**. NOVA 3, ~78.
 Tweak: swap half the rice for vegetables/edamame for more fibre.
 
-### Lithuanian version of musaka od krompira (finalised 2026-10-23, 5–6 portions, Dutch oven)
+### Lithuanian version of musaka od krompira (5–6 portions, Dutch oven)
 Balkan-style potato moussaka (no aubergine, no tomato); replaces the 4-portion "mince and potato bake"
-draft. 800 g beef mince 15 %, 1.1 kg potatoes sliced 3 mm, 300 g onions, 250 g carrots, 300 g
+draft. **v1 (2026-10-23) failed — use the v2 method below.** 800 g beef mince 15 %, 1.1 kg potatoes sliced 3 mm, 300 g onions, 250 g carrots, 300 g
 mushrooms (optional), 15 g garlic, 5 g olive oil, 50 ml water, 2 tsp sweet paprika, 1 tsp thyme,
 2 tsp salt in total; custard of 300 ml milk 2,5 % + 3 eggs + 200 g Greek yoghurt + 200 g liesa
 varškė, **blended smooth**, + nutmeg; 60 g Džiugas on top. Mince browned dry in 2 batches, vegetables
@@ -136,6 +141,15 @@ varškė, 199 g Amfora Greek yoghurt, 800 g beef 15 %, 60 g Rokiškio 12 mėn. h
 **3970 kcal, 292 g protein, 300 g carbs, 183 g fat, 42 g fibre, 70 g sugars**; raw ≈ 3.83 kg, cooked
 ≈ 3.2 kg until weighed → **per 100 g ≈ 124 kcal, 9.1 g protein, 9.4 g carbs, 5.7 g fat, 1.3 g fibre,
 2.2 g sugars**; 1/6 ≈ 660 kcal, 49 g protein. NOVA 3 (cheese), ~80. Rescale per 100 g once the pot is weighed.
+**v1 result:** potato slices (2.4 mm) still almost raw after 55 min lid on + 15 min lid off at 190 °C;
+lots of liquid; the custard set in chunks on top instead of soaking through (see the lesson in §3).
+**v2 method (2026-10-23, not yet tested):** parboil the potato slices 3–4 min in 3 L water + 1 tbsp
+salt, drain and steam-dry; filling as before, cooked until no liquid pools when the pot is tilted;
+instead of a pour-through custard, a **topping** of 150 ml milk + 3 eggs + 200 g Greek yoghurt + 200 g
+varškė + 15 g flour + ¼ tsp salt + nutmeg, blended smooth and spread over the top layer; bake 200 °C
+lid off 20 min, then cheese and 10–15 min more. ≈ **3860 kcal, 283 g protein, 291 g carbs, 172 g fat,
+40 g fibre** (15 % mince, liesa varškė); cooked ≈ 3.1 kg (estimate) → **per 100 g ≈ 124 kcal, 9.1 g
+protein, 9.4 g carbs, 5.5 g fat, 1.3 g fibre**; 1/6 ≈ 645 kcal, 47 g protein.
 
 *(Add new recipes here with the full ingredient list, total and per-100 g / per-portion nutrition.)*
 
