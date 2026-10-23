@@ -25,6 +25,9 @@ Never write to the site from this command.
 
 - Give 1–3 concrete options, each with **ingredients in grams**, short method, and **nutrition per
   portion** (kcal, protein, carbs, fat, fibre) plus an expected NOVA grade and score.
+- **Check before suggesting** (§3 rule 9): compare every recipe against established recipes for the
+  same dish and similar techniques before giving it — never assume a step, time or swap works. Name
+  the sources and flag anything untested.
 - Write every full recipe in the **recipe format in §3 of the profile**: every quantity repeated in
   bold inside the step where it's used, and each step opening with the heat level. Family dishes
   default to 5–6 mild portions cooked in his Dutch oven.

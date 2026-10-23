@@ -66,11 +66,13 @@ strength sessions a little.
   - oven: take the silicone handle covers off; the oven-temperature limit isn't verified, so keep
     recipes at **≤ 230 °C**;
   - no cold water into a hot empty pot; wooden/silicone utensils.
-- **Lesson (2026-10-23 musaka):** raw potato slices don't soften in an acidic, calcium-rich dairy
-  custard (yoghurt, curd, milk), and even less in a heavy lidded pot that heats slowly — they stayed
-  almost raw after 70 min. In layered potato bakes, **parboil the slices 3–4 min first**. Thick
-  yoghurt/curd mixtures don't soak down through layers, so use them as a **topping spread on top**,
-  with ~15 g flour so they don't split into curds and whey.
+- **Lesson (2026-10-23 musaka):** raw potato slices don't soften once acidic dairy (yoghurt, curd,
+  sour cream) is on them — acid keeps their cell walls firm; they stayed almost raw after 70 min.
+  Established Serbian/Bulgarian recipes bake the potato–meat layers **covered first (~40 min at
+  200 °C, with a little liquid)** and add the egg-dairy topping only for the **last 15–20 min**;
+  parboiling the slices is the other way round it. Thick yoghurt/curd mixtures don't soak down
+  through layers — they are a topping, and ~1 tbsp flour stops them splitting into curds and whey.
+  (A calcium effect from the dairy is plausible but unconfirmed.)
 
 ### Recipe format (stated 2026-10-23, example: his "Ginger-Garlic Chicken & Rice")
 
@@ -97,6 +99,12 @@ steps:
    Domas (weighing his pot for suvalgiau, the silicone handle covers, his portion, what he usually
    buys) goes into a **step 0 "For Domas only"** so it can be deleted before sharing. For a PDF, make
    two copies: personal (with step 0) and shareable (without).
+9. **Check before suggesting** (stated 2026-10-23, after the failed musaka v1) — never assume a
+   technique, ratio, time or substitution will work. Before giving a recipe, look up established
+   recipes for the same dish and similar techniques/variants (web search, in the dish's own language
+   too) and compare: order of steps, pre-cooking, liquid amounts, temperatures and times, how a
+   substitution behaves (e.g. acidic dairy, lean vs fatty). Say what you checked and against which
+   sources; flag anything untested or that departs from the sources.
 
 ## 4. Staples (his regular, known-good meals)
 
@@ -143,13 +151,15 @@ varškė, 199 g Amfora Greek yoghurt, 800 g beef 15 %, 60 g Rokiškio 12 mėn. h
 2.2 g sugars**; 1/6 ≈ 660 kcal, 49 g protein. NOVA 3 (cheese), ~80. Rescale per 100 g once the pot is weighed.
 **v1 result:** potato slices (2.4 mm) still almost raw after 55 min lid on + 15 min lid off at 190 °C;
 lots of liquid; the custard set in chunks on top instead of soaking through (see the lesson in §3).
-**v2 method (2026-10-23, not yet tested):** parboil the potato slices 3–4 min in 3 L water + 1 tbsp
-salt, drain and steam-dry; filling as before, cooked until no liquid pools when the pot is tilted;
-instead of a pour-through custard, a **topping** of 150 ml milk + 3 eggs + 200 g Greek yoghurt + 200 g
-varškė + 15 g flour + ¼ tsp salt + nutmeg, blended smooth and spread over the top layer; bake 200 °C
-lid off 20 min, then cheese and 10–15 min more. ≈ **3860 kcal, 283 g protein, 291 g carbs, 172 g fat,
-40 g fibre** (15 % mince, liesa varškė); cooked ≈ 3.1 kg (estimate) → **per 100 g ≈ 124 kcal, 9.1 g
-protein, 9.4 g carbs, 5.5 g fat, 1.3 g fibre**; 1/6 ≈ 645 kcal, 47 g protein.
+**v3 method (2026-10-23, checked against Serbian 021.rs / novosti.rs and Bulgarian recipes; not yet
+cooked)** — replaces an unchecked parboil "v2" that was never cooked. Raw 2–3 mm potato slices;
+filling finished with 150 ml water and left juicy; layer potato–meat–potato, **lid on, 200 °C, 40 min**,
+check the potatoes are soft (10–15 min more if not) **before** the topping goes on; topping = 150 ml
+milk + 3 eggs + 200 g Greek yoghurt + 200 g varškė + 15 g flour + ¼ tsp salt + nutmeg, blended smooth,
+spread on top with 60 g cheese, **lid off 20–25 min** (thicker than the sources' toppings, so the upper
+end). ≈ **3860 kcal, 283 g protein, 291 g carbs, 172 g fat, 40 g fibre** (15 % mince, liesa varškė);
+cooked ≈ 3.2 kg (estimate) → **per 100 g ≈ 121 kcal, 8.8 g protein, 9.1 g carbs, 5.4 g fat, 1.3 g
+fibre**; 1/6 ≈ 645 kcal, 47 g protein.
 
 *(Add new recipes here with the full ingredient list, total and per-100 g / per-portion nutrition.)*
 
