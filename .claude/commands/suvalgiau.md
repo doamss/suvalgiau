@@ -451,3 +451,5 @@ Write it for every user with entries today; say nothing in chat about anyone but
   and fine to use.
 - Daily work (`description`, `review`, past days' `coaching`, X‑1 re-verify, weight review,
   `most_used`) belongs to `/diena`. This command writes only today's `coaching`.
+
+- **Shared profile.** `FOOD-PROFILE.md` in the repo root is the shared memory with the recipe session (`/receptai`). Read it at the start of a run; when Domas states a new preference, a recipe gets saved (with per-100 g nutrition), targets change after a calibration, or training context changes, update it and commit + push to `claude/project-explanation-ms0hvn` (see §8 there).

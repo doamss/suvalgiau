@@ -397,3 +397,5 @@ say only what actually happened — don't pad it.
   reply; quote a stored Lithuanian line only when the user explicitly asks to see it.
 - Both users have Renpho data; write each into their own `review`. Only Domas's is ever discussed in chat.
 - `day.php`, `garmin.php` and `renpho.php` are the source of truth. Never invent a number.
+
+- **Shared profile.** `FOOD-PROFILE.md` in the repo root is the shared memory with the recipe session (`/receptai`). Read it at the start of a run; when Domas states a new preference, a recipe gets saved (with per-100 g nutrition), targets change after a calibration, or training context changes, update it and commit + push to `claude/project-explanation-ms0hvn` (see §8 there).
