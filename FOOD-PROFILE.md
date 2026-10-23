@@ -46,6 +46,34 @@ strength sessions a little.
 - Planned small treats are fine (e.g. 1/5 of a cake slice); judge entries relative to targets — don't
   call a good dish "the weakest" just because it scored lowest on a clean day.
 - Mild hunger is acceptable; push extra food only when the deficit heads past ~500 kcal.
+- **Ultra-processed food (stated 2026-10-23):** avoids UPF where he reasonably can, but it is not a
+  hard rule. Prefer NOVA 1–3 ingredients; name any NOVA 4 ingredient in a recipe and offer a
+  less-processed swap (e.g. traditionally brewed soy sauce, plain spices instead of stock cubes).
+
+### Cooking for the family (stated 2026-10-23)
+
+- He usually cooks **one dish for the whole family** (him, Ausra, the kids) → default to
+  **5–6 portions**, mild and kid-friendly; adults add chili, extra ginger, lemon/lime or soy at the
+  table, so put sharp/spicy extras **on the side**.
+- Main pot: a **round enamelled cast-iron Dutch oven** with lid (red) — use it for browning in
+  batches, stir-fries, stews, braises and oven bakes. He also has ordinary pots, pans and an oven.
+  Pot size not recorded yet.
+
+### Recipe format (stated 2026-10-23, example: his "Ginger-Garlic Chicken & Rice")
+
+He cooks straight from the recipe and doesn't want to scroll between the ingredient list and the
+steps:
+1. Title, then one line with portions and character, e.g. "5–6 portions · mild/kid-friendly".
+2. **Ingredients** list in g/ml (tsp/tbsp fine for salt and spices); mark optional items "optional".
+3. **Instructions** as numbered steps that **repeat every quantity in bold where it is used**
+   ("Add **200 g onion + 300 g carrots** and cook for **4 min**") — never just "add the onion".
+4. Each cooking step starts with the heat level in caps: **HIGH heat.**, **MEDIUM-HIGH heat.**,
+   **MEDIUM heat.**, **LOW heat.**, **OVEN 180 °C.**, **HEAT OFF.**; optional steps start with
+   **OPTIONAL —**.
+5. Times in every step, plus practical cues and bold warnings (brown meat in 2–3 batches without
+   constant stirring; keep rice slightly firm; add 30–50 ml water if it sticks; taste before salting).
+6. Nutrition **after** the recipe: whole-pot totals, per 100 g cooked and per portion, and a reminder
+   to weigh the finished pot.
 
 ## 4. Staples (his regular, known-good meals)
 

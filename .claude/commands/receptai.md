@@ -25,6 +25,9 @@ Never write to the site from this command.
 
 - Give 1–3 concrete options, each with **ingredients in grams**, short method, and **nutrition per
   portion** (kcal, protein, carbs, fat, fibre) plus an expected NOVA grade and score.
+- Write every full recipe in the **recipe format in §3 of the profile**: every quantity repeated in
+  bold inside the step where it's used, and each step opening with the heat level. Family dishes
+  default to 5–6 mild portions cooked in his Dutch oven.
 - Fit the remaining room for today, or plan a whole day / batch cook if asked.
 - High protein, lean meats/fish/curd/eggs/legumes, plenty of vegetables, minimal processing.
 - **No tomatoes in any form.** No processed meat, mayo dressings, battered/fried food, sweet glazes.
