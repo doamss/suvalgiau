@@ -130,6 +130,12 @@ fibre**; cooked ≈ 3.2 kg (estimate — he weighs the pot) → **per 100 g ≈ 
 Every 2 tbsp of fat spooned off ≈ −225 kcal for the dish. Lighter: spoon off fat, 300 g less potato +
 400 g savoy cabbage layer (~590 kcal per 1/6). His kids are fine with the sour note (they like
 grietinė). Shareable and personal PDFs were made from this version.
+**Cooked 2026-10-23 (actual weights):** 1190 g peeled potatoes, 324 g onions, 232 g carrots, 329 g
+mushrooms, 20 g garlic, 10 g olive oil, 300 g milk 2,5 %, 3 eggs (157 g), 204 g liesa Žemaitijos
+varškė, 199 g Amfora Greek yoghurt, 800 g beef 15 %, 60 g Rokiškio 12 mėn. hard cheese. Whole dish ≈
+**3970 kcal, 292 g protein, 300 g carbs, 183 g fat, 42 g fibre, 70 g sugars**; raw ≈ 3.83 kg, cooked
+≈ 3.2 kg until weighed → **per 100 g ≈ 124 kcal, 9.1 g protein, 9.4 g carbs, 5.7 g fat, 1.3 g fibre,
+2.2 g sugars**; 1/6 ≈ 660 kcal, 49 g protein. NOVA 3 (cheese), ~80. Rescale per 100 g once the pot is weighed.
 
 *(Add new recipes here with the full ingredient list, total and per-100 g / per-portion nutrition.)*
 
