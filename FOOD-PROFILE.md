@@ -179,7 +179,9 @@ fibre**; 1/6 ≈ 645 kcal, 47 g protein.
 - **Training:** easy runs 5–7 km at HR ~137–138; home strength sessions (TRX, 2 × 2.5 kg dumbbells,
   push-ups, pull-ups) 2× a week on non-run days. Raced TKN 32 km trail on 2026-10-17.
 - **Knees** were sore after a 6 km run on 2026-10-20 → knee-friendly strength (wall sits, TRX
-  hamstring curls, glute bridges, calf raises); shorter steps (~165 spm).
+  hamstring curls, glute bridges, calf raises); shorter steps (~165 spm). By 2026-10-24 knees "more or
+  less ok" → back to a regular plan: workouts A/B alternating 2× a week, each 2 blocks × 3 rounds
+  (split squats/lunges, single-leg RDL, pull-ups/chin-ups, push-ups, TRX rows, core), ~40 min.
 - **Goal:** David Goggins 4×4×48 (4 miles every 4 h for 48 h) on a Thursday–Friday around
   **March/April 2027**. During the challenge eat at or above maintenance (~3000–3500 kcal/day).
 - Recovery markers (Garmin): HRV baseline ~50–58, resting HR ~45–48.
