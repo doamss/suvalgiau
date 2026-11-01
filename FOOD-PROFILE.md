@@ -185,6 +185,9 @@ fibre**; 1/6 ≈ 645 kcal, 47 g protein.
 - **Goal:** David Goggins 4×4×48 (4 miles every 4 h for 48 h) on a Thursday–Friday around
   **March/April 2027**. During the challenge eat at or above maintenance (~3000–3500 kcal/day).
 - Recovery markers (Garmin): HRV baseline ~50–58, resting HR ~45–48.
+- **2026-11-01:** cravings and snacking harder to resist for ~a week (after ~6 weeks of deficit);
+  he links it to skimming only the numbers, not the coaching notes. Lean on pre-planned snacks
+  (curd/skyr + berries) and a fixed eating plan per day rather than willpower.
 
 ---
 
