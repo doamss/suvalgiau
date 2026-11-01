@@ -172,6 +172,12 @@ end). ≈ **3860 kcal, 283 g protein, 291 g carbs, 172 g fat, 40 g fibre** (15 %
 cooked ≈ 3.2 kg (estimate) → **per 100 g ≈ 121 kcal, 8.8 g protein, 9.1 g carbs, 5.4 g fat, 1.3 g
 fibre**; 1/6 ≈ 645 kcal, 47 g protein.
 
+### Curd and Greek yoghurt dill sauce for potatoes (made 2026-11-01)
+346 g liesa Žemaitijos varškė 0,5 %, 170 g Amfora Greek yoghurt 3,9 %, 85 g milk 2,5 %, dill, salt.
+Whole batch ≈ 601 g, **526 kcal, 87 g protein, 17 g carbs, 10 g fat** → **per 100 g ≈ 88 kcal,
+14.5 g protein, 2.9 g carbs, 1.7 g fat**. NOVA 1-2. With boiled potatoes (~77 kcal/100 g) it is a
+clean, high-protein dinner; 150 g sauce ≈ 130 kcal, 22 g protein.
+
 *(Add new recipes here with the full ingredient list, total and per-100 g / per-portion nutrition.)*
 
 ## 6. Current context (update as it changes)
