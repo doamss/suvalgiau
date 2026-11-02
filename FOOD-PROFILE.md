@@ -178,6 +178,13 @@ Whole batch ≈ 601 g, **526 kcal, 87 g protein, 17 g carbs, 10 g fat** → **pe
 14.5 g protein, 2.9 g carbs, 1.7 g fat**. NOVA 1-2. With boiled potatoes (~77 kcal/100 g) it is a
 clean, high-protein dinner; 150 g sauce ≈ 130 kcal, 22 g protein.
 
+### Wholegrain pasta with chicken, peppers, mushrooms and cream (made 2026-11-02)
+463 g chicken breast, 8 g oil, 1 onion (~100 g), 340 g wholegrain pasta (dry), 204 g peppers, 142 g
+mushrooms, 5 g garlic, 20 g Džiugas, 160 g cream 30 %. Whole pot ≈ **2460 kcal, 168 g protein, 245 g
+carbs, 79 g fat, 38 g fibre**; cooked ≈ 1.45 kg (estimate, not weighed) → **per 100 g ≈ 169 kcal,
+11.6 g protein, 16.9 g carbs, 5.4 g fat, 2.7 g fibre**. NOVA 3 (cheese), ~72. Lighter: swap half the
+cream for Greek yoghurt or blended curd (stir in off the heat) → ≈ −200 kcal per pot, +15 g protein.
+
 *(Add new recipes here with the full ingredient list, total and per-100 g / per-portion nutrition.)*
 
 ## 6. Current context (update as it changes)
