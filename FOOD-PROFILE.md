@@ -17,17 +17,17 @@ Chat with Domas in **English**. Anything written to the suvalgiau site is **Lith
   diabetic — carbs:fibre ratio ≤ 5), **Monika** (21). Domas has kids; family dinners are often shared
   with Ausra.
 
-## 2. Targets (from the weekly scale calibration, last run 2026-10-26)
+## 2. Targets (from the weekly scale calibration, last run 2026-11-02)
 
 | | Value |
 |---|---|
-| Real maintenance (scale-based) | **~2580 kcal/day** (10-26: 14-day avg intake 2376, Garmin burn 2580, scale −0.4 kg → ~2600; Garmin burn is accurate for him) |
+| Real maintenance (scale-based) | **~2580 kcal/day** (11-02: 14-day avg intake 2243, Garmin burn 2516, weekly-average scale −0.38 kg/week → consistent with ~2550–2600; 10-26: intake 2376, burn 2580; Garmin burn is accurate for him) |
 | Rest day intake | **~1950–2050 kcal** |
 | Run day intake | **~2150–2250 kcal** |
 | Target deficit | **300–400 kcal** — above ~500 his HRV drops, so add food (lean protein) past that |
 | Protein | **~130 g minimum, 140–150 g ideal** (lean-mass share of loss since 09-21 is ~40–45 % — still too high; keep 140 g+ and 2 strength sessions/week) |
 | Fibre | 25 g+ |
-| Pace | ~0.35–0.5 % body weight per week (last 2 weeks ~0.25 %/week: race week and big days; 10-19→10-25 averaged a ~410 kcal deficit) |
+| Pace | ~0.35–0.5 % body weight per week (11-02: weekly averages 79.57 → 79.19 kg = ~0.5 %/week on an average ~270 kcal deficit; lean share of that week ~37 %, since 09-21 ~43 %) |
 
 Garmin resting burn ≈ **2110 kcal**; total burn ≈ 2110 + Garmin "active kcal". Garmin under-reads
 strength sessions a little.
