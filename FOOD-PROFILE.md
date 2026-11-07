@@ -66,6 +66,9 @@ strength sessions a little.
   - oven: take the silicone handle covers off; the oven-temperature limit isn't verified, so keep
     recipes at **≤ 230 °C**;
   - no cold water into a hot empty pot; wooden/silicone utensils.
+- **Kitchen and family details (stated 2026-11-07):** **gas hob**. His meat thermometer reads off, so
+  give **times first** and temperatures only as a back-up. Steak: **Domas medium-rare**, Ausra and the
+  kids **medium to medium-well**; the kids share one steak (3 × 220 g entrecôte fed the family).
 - **Lesson (2026-10-23 musaka):** raw potato slices don't soften once acidic dairy (yoghurt, curd,
   sour cream) is on them — acid keeps their cell walls firm; they stayed almost raw after 70 min.
   Established Serbian/Bulgarian recipes bake the potato–meat layers **covered first (~40 min at
