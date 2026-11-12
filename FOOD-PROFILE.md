@@ -34,6 +34,7 @@ strength sessions a little.
 
 ## 3. Hard rules and preferences
 
+- **Also dislikes (2026-11-12):** coriander (hates it), duck, prawns/shrimp, and Vietnamese-style lime/fish-sauce salads — Vietnamese food in general is not a favourite. Don't suggest these; if a dish has prawns, offer it without them.
 - **No tomatoes.** Never suggest tomatoes, tomato sauce, salsa, pico de gallo, ketchup or tomato-based
   dishes. Offer non-tomato alternatives.
 - **Žemaitijos varškė** without a variant = **liesa 0,5 %** (96 kcal, 20 g protein /100 g).
