@@ -189,6 +189,15 @@ carbs, 79 g fat, 38 g fibre**; cooked ≈ 1.45 kg (estimate, not weighed) → **
 11.6 g protein, 16.9 g carbs, 5.4 g fat, 2.7 g fibre**. NOVA 3 (cheese), ~72. Lighter: swap half the
 cream for Greek yoghurt or blended curd (stir in off the heat) → ≈ −200 kcal per pot, +15 g protein.
 
+### Beef, red lentil & wholegrain pasta stew (his favourite; cooked 2026-11-17)
+Whole pot: 800 g beef 15 %, 158 g red lentils (dry), 150 g wholegrain pasta (dry), 150 g mushrooms,
+250 g carrots, 61 g onion, 13 g garlic, 127 g pepper, 10 g olive oil, 2 Natur Compagnie stock cubes
+(Valgau 1-2), spices; cooked thick, little liquid.
+Total ≈ **3180 kcal, 226 g protein, 240 g carbs, 142 g fat, 41 g fibre**. Cooked weight not yet
+weighed — at an estimated ~2.2 kg: **per 100 g ≈ 145 kcal, 10.3 g protein, 1.9 g fibre**. Per portion:
+÷4 ≈ 795 kcal / 57 g protein; ÷5 ≈ 636 kcal / 45 g protein; ÷6 ≈ 530 kcal / 38 g protein. NOVA 3
+(stock cubes), ~78. The beef carries ~85 % of the fat; legumes + wholegrain pasta give the fibre.
+
 *(Add new recipes here with the full ingredient list, total and per-100 g / per-portion nutrition.)*
 
 ## 6. Current context (update as it changes)
