@@ -216,6 +216,14 @@ weighed — at an estimated ~2.2 kg: **per 100 g ≈ 145 kcal, 10.3 g protein, 1
 - **2026-11-01:** cravings and snacking harder to resist for ~a week (after ~6 weeks of deficit);
   he links it to skimming only the numbers, not the coaching notes. Lean on pre-planned snacks
   (curd/skyr + berries) and a fixed eating plan per day rather than willpower.
+- **2026-11-17 → ongoing: has a cold** (HRV 71 → 47 by 11-19, resting HR up to 49). No strength
+  training until it passes; walks only; eat at ~maintenance, not in a deficit.
+- **Family dinners (stated 2026-11-19):** dinner is often one quick meal for the whole family incl.
+  kids — sausages + oven potatoes + cucumber/yoghurt salad. Kids won't eat curd/yoghurt meals, and
+  when sick he has no energy to cook stew or chicken. Accept this; coach the **swap, not the meal**:
+  cleaner sausages (Nikola BIOFARM beef — 75–90 % beef, no nitrites/E-numbers, Valgau 1-2 →
+  NOVA 3 by production) instead of standard 4C ones; other low-effort family options: chicken
+  thighs/drumsticks on a tray with the potatoes, omelette, shop-roasted chicken.
 
 ---
 
