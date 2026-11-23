@@ -198,6 +198,12 @@ weighed — at an estimated ~2.2 kg: **per 100 g ≈ 145 kcal, 10.3 g protein, 1
 ÷4 ≈ 795 kcal / 57 g protein; ÷5 ≈ 636 kcal / 45 g protein; ÷6 ≈ 530 kcal / 38 g protein. NOVA 3
 (stock cubes), ~78. The beef carries ~85 % of the fat; legumes + wholegrain pasta give the fibre.
 
+Batch 2 (cooked 2026-11-23, more vegetables, no oil): 800 g beef 15 %, 150 g red lentils (dry), 160 g
+wholegrain pasta (dry), 218 g mushrooms, 190 g carrots, 102 g onion, 14 g garlic, 284 g pepper,
+2 Natur Compagnie stock cubes. Total ≈ **3130 kcal, 220 g protein, 250 g carbs, 131 g fat, 44 g fibre**.
+At an estimated ~2.2 kg cooked: **per 100 g ≈ 142 kcal, 10 g protein, 2 g fibre**; a 430 g bowl ≈ 610
+kcal / 43 g protein. Weigh the empty pot once to pin the cooked weight.
+
 *(Add new recipes here with the full ingredient list, total and per-100 g / per-portion nutrition.)*
 
 ## 6. Current context (update as it changes)
