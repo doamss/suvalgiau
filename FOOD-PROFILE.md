@@ -226,7 +226,10 @@ kcal / 43 g protein. Weigh the empty pot once to pin the cooked weight.
   training until it passes; walks only; eat at ~maintenance, not in a deficit.
 - **Work trip 2026-11-24 → 11-26 (Tue–Thu), Czech Republic:** restaurant lunches (sends menu photos
   before ordering), shared starters at the table. Coach with travel defaults: grilled meat/fish + salad,
-  sauces on the side, bread minimal, no fried plates or desserts; bodyweight strength in the hotel.
+  sauces on the side, bread minimal, no fried plates or desserts; bodyweight strength in the hotel. Lunches and dinners are pre-set by the hosts and the evenings
+  involve networking drinks he cannot avoid — coach portion control on the plate (protein + veg first,
+  half the starch, sauce/bread/dessert left), cap drinks with water between, and use breakfast as the
+  one meal he controls fully.
 - **Family dinners (stated 2026-11-19):** dinner is often one quick meal for the whole family incl.
   kids — sausages + oven potatoes + cucumber/yoghurt salad. Kids won't eat curd/yoghurt meals, and
   when sick he has no energy to cook stew or chicken. Accept this; coach the **swap, not the meal**:
