@@ -224,6 +224,9 @@ kcal / 43 g protein. Weigh the empty pot once to pin the cooked weight.
   (curd/skyr + berries) and a fixed eating plan per day rather than willpower.
 - **2026-11-17 → ongoing: has a cold** (HRV 71 → 47 by 11-19, resting HR up to 49). No strength
   training until it passes; walks only; eat at ~maintenance, not in a deficit.
+- **Work trip 2026-11-24 → 11-26 (Tue–Thu), Czech Republic:** restaurant lunches (sends menu photos
+  before ordering), shared starters at the table. Coach with travel defaults: grilled meat/fish + salad,
+  sauces on the side, bread minimal, no fried plates or desserts; bodyweight strength in the hotel.
 - **Family dinners (stated 2026-11-19):** dinner is often one quick meal for the whole family incl.
   kids — sausages + oven potatoes + cucumber/yoghurt salad. Kids won't eat curd/yoghurt meals, and
   when sick he has no energy to cook stew or chicken. Accept this; coach the **swap, not the meal**:
